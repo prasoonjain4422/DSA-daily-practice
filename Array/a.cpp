@@ -8,24 +8,6 @@
 const ll M = 1000000007;
 using namespace std;
 
-void mul(ll i, vector<ll> &ans)
-{
-    ll carry = 0;
-    ll pro = 1;
-    for (auto it = ans.begin(); it != ans.end(); it++)
-    {
-        pro = ((*it) * i) + carry;
-        (*it) = pro % 10;
-        carry = pro / 10;
-    }
-
-    while (carry)
-    {
-        ans.push_back(carry % 10);
-        carry /= 10;
-    }
-}
-
 int main()
 {
 
@@ -37,18 +19,50 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(0);
 
-    ll i, j, k, n1, n2, n3, t, m, l, s, add, x, f, sum;
+    ll i, j, k, n1, n2, n3, t, m, l, s, add, x, sum;
     cin >> n1;
-    vector<ll> ans;
-    ans.push_back(1);
+    vector<ll> a(n1);
 
-    for (i = 2; i <= n1; i++)
-        mul(i, ans);
+    for (i = 0; i < n1; i++)
+        cin >> a[i];
 
-    reverse(ans.begin(), ans.end());
+    ll pro = 1, tln = 1, f = 1, ans = 1;
+    for (i = 0; i < n1; i++)
+    {
+        if (a[i] > 0)
+        {
+            pro *= a[i];
+            if (f == 1)
+                tln *= a[i];
+        }
+        else if (a[i] < 0)
+        {
+            ans = max(ans, pro);
+            pro *= a[i];
+            if (f == 1)
+            {
+                tln *= a[i];
+                f = 0;
+            }
+        }
+        else
+        {
+            if (pro < 0)
+                ans = max(ans, pro / tln);
+            else
+                ans = max(ans, pro);
 
-    for (auto x : ans)
-        cout << x << " ";
+            f = 1;
+            pro = 1;
+            tln = 1;
+        }
+    }
+    if (pro < 0)
+        ans = max(ans, pro / tln);
+    else
+        ans = max(ans, pro);
+
+    cout << ans;
 
     return 0;
 }
