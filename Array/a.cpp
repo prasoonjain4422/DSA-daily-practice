@@ -38,8 +38,8 @@ int main()
             ms.insert(dif);
         }
         else
-        {
             if (dif < (a[i] - l))
+        {
                 dif = (a[i] - l);
         }
     }
