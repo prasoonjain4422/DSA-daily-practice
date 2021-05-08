@@ -1,0 +1,20 @@
+1 4 4 5 5 6 7 7 8 9 
+0j   4 6
+
+
+1i j0
+0j   4 modified 9
+3i j0
+0j   0 modified 9
+5i j1
+1j   1 modified 10
+6i j2
+2j   2 modified 11
+8i j3
+3j   3 modified 12
+0j   0 9
+1j   1 10
+2j   2 11
+3j   3 12
+4j   4 13
+8

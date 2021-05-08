@@ -24,67 +24,69 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(0);
 
-    ll n, n1, n2, n3, t, m, l, s, add, mx1 = 0, mx2 = 0, sum;
+    ll n, n1, n2, n3, t, m, l, mx1 = 0, mx2 = 0, sum, i, j, k;
 
-    int i = 0, j = 0, k = 0, a, b;
-
-    cin >> n;
-    vector<int> ar(n);
+    cin >> k >> n;
+    int arr[n];
     for (i = 0; i < n; i++)
-        cin >> ar[i];
+        cin >> arr[i];
 
-    cin >> a >> b;
-    
-    a--;
-    i = 0;
-    while ((i < n) && (ar[i] <= a))
-        i++;
+    sort(arr, arr + n);
+    for (i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+    int intervals = 1;
+    int s[n * n];
+    int b[n * n];
+    int inter;
+    int add, sub, ans = arr[n - 1] - arr[0];
+    b[0] = arr[n - 1] - k, s[0] = arr[0] + k;
+    if (s[0] > b[0])
+        swap(s[0], b[0]);
 
-    cout << i << endl;
-    for (k = i + 1; k < n; k++)
+    for (j = 0; j < intervals; j++)
     {
-        if (ar[k] <= a)
+        cout << j << "j   " << s[j] << " " << b[j] << endl;
+    }
+    cout << endl;
+    cout << endl;
+
+    for (i = 1; i < n - 1; i++)
+    {
+        add = arr[i] + k;
+        sub = arr[i] - k;
+
+        inter = intervals;
+        for (j = 0; j < intervals; j++)
         {
-            if (i < n)
+            if ((sub >= s[j]) || (add <= b[j]))
+                continue;
+
+            cout << i << "i j" << j << endl;
+            if (sub >= 0)
             {
-                swap(ar[k], ar[i]);
-                i++;
-                showa(ar);
-                cout << endl;
+                s[inter] = s[j];
+                s[j] = sub;
+                b[inter] = add;
+                inter++;
+                // cout<<"new  "<<s[inter]<<" "<<
             }
-            while ((i < n) && (ar[i] <= a))
-                i++;
+            else
+            {
+                b[j] = add;
+            }
+            cout << j << "j   " << s[j] << " modified " << b[j] << endl;
         }
+        intervals = inter;
     }
 
-    i = 0;
-    while ((i < n) && (ar[i] <= b))
-        i++;
-
-    cout << endl;
-    cout << i << endl;
-    cout << endl;
-
-    for (k = i + 1; k < n; k++)
+    for (j = 0; j < intervals; j++)
     {
-        if (ar[k] <= b)
-        {
-            if (i < n)
-            {
-                swap(ar[k], ar[i]);
-                i++;
-                showa(ar);
-                cout << endl;
-            }
-            while ((i < n) && (ar[i] <= b))
-                i++;
-        }
+        ans = min(ans, (b[j] - s[j]));
+        cout << j << "j   " << s[j] << " " << b[j] << endl;
     }
 
-    showa(ar);
-    cout << endl;
-    for (i = 0; i < n; i++)
-        cout << ar[i] << " ";
+    cout << ans;
 
     return 0;
 }
