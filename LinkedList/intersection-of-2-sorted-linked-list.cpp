@@ -82,41 +82,27 @@ struct Node
 
 Node *findIntersection(Node *head1, Node *head2)
 {
-    unordered_set<int> s;
 
-    while (head1 != NULL)
+    if ((head1 == NULL) || (head2 == NULL))
+        return NULL;
+
+    Node *result = new Node(0);
+
+    if (head1->data == head2->data)
     {
-        s.insert(head1->data);
+        result->data = head2->data;
+        result->next = findIntersection(head1->next, head2->next);
+    }
+    else if (head1->data < head2->data)
+    {
+        result->next = findIntersection(head1->next, head2);
+        result = result->next;
+    }
+    else
+    {
+        result->next = findIntersection(head1, head2->next);
+        result = result->next;
     }
 
-    Node *ans = NULL, *it = NULL;
-
-    if (head2 != NULL)
-    {
-        if (s.find(head2->data) == s.end())
-        {
-            head2 = head2->next;
-            if (head2 == NULL)
-                return NULL;
-        }
-
-        ans = head2;
-        it = head2;
-        head2 = head2->next;
-
-        while (head2 != NULL)
-        {
-            if (s.find(head2->data) != s.end())
-            {
-                it->next = head2;
-                it = it->next;
-            }
-
-            head2 = head2->next;
-        }
-
-        it->next = NULL;
-    }
-
-    return ans;
+    return result;
 }
