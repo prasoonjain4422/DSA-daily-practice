@@ -2,7 +2,6 @@
 /* Program to split a circular linked list into two halves */
 #include <stdio.h>
 #include <stdlib.h>
-#include <bits/stdc++.h>
 
 /* structure for a Node */
 struct Node
@@ -28,19 +27,19 @@ struct Node *newNode(int key)
    head1_ref and head2_ref are references to head Nodes of 
     the two resultant linked lists */
 
-// void printList(struct Node *head)
-// {
-//     struct Node *temp = head;
-//     if (head != NULL)
-//     {
-//         do
-//         {
-//             printf("%d ", temp->data);
-//             temp = temp->next;
-//         } while (temp != head);
-//         printf("\n");
-//     }
-// }
+void printList(struct Node *head)
+{
+    struct Node *temp = head;
+    if (head != NULL)
+    {
+        do
+        {
+            printf("%d ", temp->data);
+            temp = temp->next;
+        } while (temp != head);
+        printf("\n");
+    }
+}
 
 /* Driver program to test above functions */
 int main()
@@ -51,8 +50,8 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    // ios_base::sync_with_stdio(false);
-    // cin.tie(0);
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
 
     int t, n, i, x;
     scanf("%d", &t);
