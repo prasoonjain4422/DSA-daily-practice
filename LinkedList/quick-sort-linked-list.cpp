@@ -99,7 +99,7 @@ node *partition(struct node *head)
 
     while (head != end)
     {
-        if ((head->data) <= (end->data))
+        if (((head->data) <= (end->data)) && (head != i))
         {
             i = i->next;
             swap((i->data), (head->data));
