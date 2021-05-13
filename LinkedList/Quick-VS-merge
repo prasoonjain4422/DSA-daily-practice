@@ -1,0 +1,19 @@
+
+Q. Why quick sort is preffered for arrays and merge for linked lists??
+
+-> For Arrays:
+    -> Merge sort requires extra space of O(n) whereas quick sort doesn't.
+    -> While the time complexity of both is same O(nLog(n)).
+    -> Quick Sort is also a cache friendly sorting algorithm 
+        as it has good locality of reference when used for arrays.
+    -> Quick Sort is also tail recursive(calling function at end), therefore tail call 
+        optimizations is done.
+
+-> For Linked lists:
+    -> Merge operation of merge sort doesn't require extra O(n) space.
+    -> For linked lists, to access a particular position we have to do 
+        the random access until that position. Quick Sort requires a lot 
+        of this kind of random access.
+    -> Whereas, merge sort access data sequencially, and no need of random 
+        access.
+    
