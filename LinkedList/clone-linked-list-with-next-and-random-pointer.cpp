@@ -113,15 +113,6 @@ bool validation(Node *head, Node *res)
 /* Driver program to test above function*/
 int main()
 {
-
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
-
-    // ios_base::sync_with_stdio(false);
-    // cin.tie(0);
-
     int T, i, n, l, k;
     Node *generated_addr = NULL;
     /*reading input stuff*/
@@ -245,8 +236,8 @@ Node *copyList(Node *head)
     {
         if (head->arb != NULL)
         {
-            Node *i = head;
-            Node *j = a;
+            Node *i = root;
+            Node *j = ans;
 
             while (i != NULL)
             {
@@ -263,25 +254,6 @@ Node *copyList(Node *head)
         head = head->next;
         a = a->next;
     }
-    
-    Node*h = ans;
-    
-    while(ans!=NULL)
-    {
-        cout<<ans->data<<" ";
-        ans = ans->next;
-    }
-    cout<<endl;
-    ans = h;
-    while(h!=NULL)
-    {
-        if(h->arb!=NULL)
-        {
-            cout<<h->data<<" "<<h->arb->data<<" ";
-        }
-        h = h->next;
-    }
-    cout<<endl;
 
     return ans;
 }
