@@ -55,7 +55,7 @@ void swap(struct Node *head, struct Node *next, struct Node *prev)
 
 struct Node *rotateDLL(struct Node *head, int r)
 {
-
+    
     // input  -> 1 2 3 4 5,  r=2
     // output -> 3 4 5 1 2
 
@@ -68,7 +68,7 @@ struct Node *rotateDLL(struct Node *head, int r)
     {
         cur = cur->next;
     }
-
+    
     Node *a = cur->next;
     cur->next = NULL;
 
@@ -79,7 +79,7 @@ struct Node *rotateDLL(struct Node *head, int r)
     {
         cur = cur->next;
     }
-
+    
     cur->next = head;
     head->prev = cur;
 

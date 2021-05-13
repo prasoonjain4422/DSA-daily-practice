@@ -66,20 +66,20 @@ struct Node *reversebyN_DLL(struct Node *head, int r)
     int i = r - 1;
 
     Node *a = NULL;
-    while(i--)
+    while (i--)
     {
         a = cur->next;
         cur->next = cur->prev;
         cur->prev = a;
         cur = cur->prev;
     }
-    
+
     a = cur->next;
     cur->next = cur->prev;
     cur->prev = NULL;
     head->next = reversebyN_DLL(a, r);
     head->next->prev = head;
-    
+
     return cur;
 }
 
