@@ -20,9 +20,28 @@ void postorder(Node *root)
     if (root == NULL)
         return;
 
-    postorder(root->left);
-    postorder(root->right);
-    cout << root->data << " ";
+    stack<Node *> s;
+    stack<int> o;
+    s.push(root);
+
+    while (!s.empty())
+    {
+
+        root = s.top();
+        s.pop();
+        o.push(root->data);
+        if (root->left != NULL)
+            s.push(root->left);
+
+        if (root->right != NULL)
+            s.push(root->right);
+    }
+
+    while (!o.empty())
+    {
+        cout << o.top() << " ";
+        o.pop();
+    }
 }
 
 int main()
