@@ -1,60 +1,29 @@
+// { Driver Code Starts
+//Initial Template for C++
+
 #include <bits/stdc++.h>
 using namespace std;
 
-// Structure of binary tree
+// Tree Node
 struct Node
 {
+    int data;
     Node *left;
     Node *right;
-    int data;
 };
 
-// function to create a new node
-Node *newNode(int key)
+// Utility function to create a new Tree Node
+Node *newNode(int val)
 {
-    Node *node = new Node();
-    node->left = node->right = NULL;
-    node->data = key;
-    return node;
+    Node *temp = new Node;
+    temp->data = val;
+    temp->left = NULL;
+    temp->right = NULL;
+
+    return temp;
 }
 
-// function to fill the map
-void fillMap(Node *root, int d, int l,
-             map<int, pair<int, int>> &m)
-{
-    if (root == NULL)
-        return;
-
-    if (m.count(d) == 0)
-    {
-        m[d] = make_pair(root->data, l);
-    }
-    else if (m[d].second > l)
-    {
-        m[d] = make_pair(root->data, l);
-    }
-
-    fillMap(root->left, d - 1, l + 1, m);
-    fillMap(root->right, d + 1, l + 1, m);
-}
-
-// function should print the topView of
-// the binary tree
-void topView(struct Node *root)
-{
-
-    // map to store the pair of node value and its level
-    // with respect to the vertical distance from root.
-    map<int, pair<int, int>> m;
-
-    // fillmap(root,vectical_distance_from_root,level_of_node,map)
-    fillMap(root, 0, 0, m);
-
-    for (auto it = m.begin(); it != m.end(); it++)
-    {
-        cout << it->second.first << " ";
-    }
-}
+// Function to Build Tree
 Node *buildTree(string str)
 {
     // Corner Case
@@ -120,7 +89,57 @@ Node *buildTree(string str)
 
     return root;
 }
-// Driver Program to test above functions
+
+// } Driver Code Ends
+
+class Solution
+{
+public:
+    //Function to return a list of nodes visible from the top view
+    //from left to right in Binary Tree.
+    
+    void fun(Node *root, int d, int l, map<int, pair<int, int>> &um)
+    {
+        if(root==NULL)
+            return;
+        
+        if(um.count(d) == 0)
+        {
+            um[d] = make_pair(l, root->data);
+        }
+        else
+        {
+            if(um[d].first > l)
+            {
+                um[d].first = l;
+                um[d].second = root->data;
+            }
+        }
+        
+        fun(root->left, d-1, l+1, um);
+        fun(root->right, d+1, l+1, um);
+    }
+    
+    vector<int> topView(Node *root)
+    {
+        vector<int> ans;
+        
+        map<int, pair<int, int>> um;
+        
+        fun(root, 0, 1, um);
+        
+        
+        for(auto x: um)
+        {
+            ans.push_back(x.second.second);
+        }
+        
+        return ans;
+    }
+};
+
+// { Driver Code Starts.
+
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -137,11 +156,12 @@ int main()
     {
         string treeString;
         getline(cin, treeString);
+        Solution ob;
         Node *root = buildTree(treeString);
-        topView(root);
-        // for (int x : vec)
-        //     cout << x << " ";
+        vector<int> vec = ob.topView(root);
+        for (int x : vec)
+            cout << x << " ";
         cout << endl;
     }
     return 0;
-}
+} // } Driver Code Ends
