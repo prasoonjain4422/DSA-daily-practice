@@ -9,9 +9,6 @@ struct Node
     Node *left;
     Node *right;
 };
-
-vector<int> leftView(struct Node *root);
-
 // Utility function to create a new Tree Node
 Node *newNode(int val)
 {
@@ -22,6 +19,67 @@ Node *newNode(int val)
 
     return temp;
 }
+
+// } Driver Code Ends
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child 
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+}; */
+
+// Should return  right view of tree
+class Solution
+{
+public:
+    //Function to return list containing elements of right view of binary tree.
+    vector<int> rightView(Node *root)
+    {
+        vector<int> ans;
+        ans.clear();
+
+        if (root == NULL)
+            return ans;
+
+        queue<Node *> q;
+        q.push(root);
+        int n, i;
+        Node *a = NULL;
+
+        while (!q.empty())
+        {
+            n = q.size();
+
+            for (i = 1; i <= n; i++)
+            {
+                a = q.front();
+                q.pop();
+
+                if (i == n)
+                {
+                    ans.push_back(a->data);
+                }
+
+                if (a->left != NULL)
+                    q.push(a->left);
+
+                if (a->right != NULL)
+                    q.push(a->right);
+            }
+        }
+
+        return ans;
+    }
+};
+
+// { Driver Code Starts.
 
 // Function to Build Tree
 Node *buildTree(string str)
@@ -38,9 +96,6 @@ Node *buildTree(string str)
     for (string str; iss >> str;)
         ip.push_back(str);
 
-    // for(string i:ip)
-    //     cout<<i<<" ";
-    // cout<<endl;
     // Create the root of the tree
     Node *root = newNode(stoi(ip[0]));
 
@@ -95,76 +150,25 @@ Node *buildTree(string str)
 
 int main()
 {
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
-
-    // ios_base::sync_with_stdio(false);
-    // cin.tie(0);
     int t;
-    scanf("%d ", &t);
+    string tc;
+    getline(cin, tc);
+    t = stoi(tc);
     while (t--)
     {
         string s;
         getline(cin, s);
         Node *root = buildTree(s);
-        vector<int> vec = leftView(root);
+
+        Solution ob;
+        vector<int> vec = ob.rightView(root);
         for (int x : vec)
+        {
             cout << x << " ";
+        }
         cout << endl;
     }
     return 0;
 }
 
 // } Driver Code Ends
-
-/* A binary tree node
-
-struct Node
-{
-    int data;
-    struct Node* left;
-    struct Node* right;
-    
-    Node(int x){
-        data = x;
-        left = right = NULL;
-    }
-};
- */
-
-//Function to return a list containing elements of left view of the binary tree.
-int lh = 1;
-vector<int> ans;
-void height(Node *a, int h)
-{
-    if (h > lh)
-    {
-        ans.push_back(a->data);
-        lh++;
-    }
-
-    if (a->left != NULL)
-        height(a->left, h + 1);
-
-    if (a->right != NULL)
-        height(a->right, h + 1);
-}
-
-vector<int> leftView(Node *root)
-{
-    Node *a = root;
-    ans.clear();
-    ans.push_back(a->data);
-    while (a->left != NULL)
-    {
-        lh++;
-        a = a->left;
-        ans.push_back(a->data);
-    }
-
-    height(root, 1);
-
-    return ans;
-}
