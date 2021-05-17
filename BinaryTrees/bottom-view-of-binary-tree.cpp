@@ -1,60 +1,30 @@
+// { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
+#define MAX_HEIGHT 100000
 
-// Structure of binary tree
+// Tree Node
 struct Node
 {
+    int data;
     Node *left;
     Node *right;
-    int data;
 };
 
-// function to create a new node
-Node *newNode(int key)
+// Utility function to create a new Tree Node
+Node *newNode(int val)
 {
-    Node *node = new Node();
-    node->left = node->right = NULL;
-    node->data = key;
-    return node;
+    Node *temp = new Node;
+    temp->data = val;
+    temp->left = NULL;
+    temp->right = NULL;
+
+    return temp;
 }
 
-// function to fill the map
-void fillMap(Node *root, int d, int l,
-             map<int, pair<int, int>> &m)
-{
-    if (root == NULL)
-        return;
+vector<int> bottomView(Node *root);
 
-    if (m.count(d) == 0)
-    {
-        m[d] = make_pair(root->data, l);
-    }
-    else if (m[d].second > l)
-    {
-        m[d] = make_pair(root->data, l);
-    }
-
-    fillMap(root->left, d - 1, l + 1, m);
-    fillMap(root->right, d + 1, l + 1, m);
-}
-
-// function should print the topView of
-// the binary tree
-void topView(struct Node *root)
-{
-
-    // map to store the pair of node value and its level
-    // with respect to the vertical distance from root.
-    map<int, pair<int, int>> m;
-
-    // fillmap(root,vectical_distance_from_root,level_of_node,map)
-    fillMap(root, 0, 0, m);
-
-    for (auto it = m.begin(); it != m.end(); it++)
-    {
-        cout << it->second.first << " ";
-    }
-}
+// Function to Build Tree
 Node *buildTree(string str)
 {
     // Corner Case
@@ -120,28 +90,60 @@ Node *buildTree(string str)
 
     return root;
 }
-// Driver Program to test above functions
+
 int main()
 {
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
-
-    // ios_base::sync_with_stdio(false);
-    // cin.tie(0);
-    int tc;
-    cin >> tc;
-    cin.ignore(256, '\n');
-    while (tc--)
+    int t;
+    string tc;
+    getline(cin, tc);
+    t = stoi(tc);
+    while (t--)
     {
-        string treeString;
-        getline(cin, treeString);
-        Node *root = buildTree(treeString);
-        topView(root);
-        // for (int x : vec)
-        //     cout << x << " ";
+        string s, ch;
+        getline(cin, s);
+        Node *root = buildTree(s);
+
+        vector<int> res = bottomView(root);
+        for (int i : res)
+            cout << i << " ";
         cout << endl;
     }
     return 0;
+}
+
+// } Driver Code Ends
+
+//Function to return a list containing the bottom view of the given tree.
+
+vector<int> bottomView(Node *root)
+{
+
+    int hd;
+    vector<int> ans;
+    map<int, int> um;           // hd, data
+    queue<pair<int, Node *>> q; // hd, Node*
+    q.push(make_pair(0, root));
+
+    while (!q.empty())
+    {
+        auto it = q.front();
+        q.pop();
+
+        hd = it.first;
+        root = it.second;
+        um[hd] = root->data;
+
+        if (root->left != NULL)
+            q.push(make_pair(hd - 1, root->left));
+
+        if (root->right != NULL)
+            q.push(make_pair(hd + 1, root->right));
+    }
+
+    for (auto x : um)
+    {
+        ans.push_back(x.second);
+    }
+
+    return ans;
 }
