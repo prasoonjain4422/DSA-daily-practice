@@ -98,34 +98,21 @@ public:
     //Function to return a list of nodes visible from the top view
     //from left to right in Binary Tree.
 
-    void fun(Node *root, int d, int l, multimap<int, pair<int, int>> &um)
+    void fun(Node *root, int d, int l, map<int, pair<int, int>> &um)
     {
-        // cout << "fun" << endl;
-
         if (root == NULL)
             return;
 
         if (um.count(d) == 0)
         {
-            um.insert(make_pair(d, make_pair(l, root->data)));
+            um[d] = make_pair(l, root->data);
         }
         else
         {
-            for (auto x : um)
+            if (um[d].first > l)
             {
-                if (x.first == d)
-                {
-                    if (x.second.first < l)
-                    {
-                        x.second.first = l;
-                        x.second.second = root->data;
-                    }
-                    else if (x.second.first == l)
-                    {
-                        um.insert(make_pair(d, make_pair(l, root->data)));
-                        break;
-                    }
-                }
+                um[d].first = l;
+                um[d].second = root->data;
             }
         }
 
@@ -137,14 +124,13 @@ public:
     {
         vector<int> ans;
 
-        multimap<int, pair<int, int>> um;
+        map<int, pair<int, int>> um;
 
         fun(root, 0, 1, um);
 
         for (auto x : um)
         {
             ans.push_back(x.second.second);
-            cout << x.second.second << " ";
         }
 
         return ans;
