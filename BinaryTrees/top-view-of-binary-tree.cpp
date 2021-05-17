@@ -97,43 +97,56 @@ class Solution
 public:
     //Function to return a list of nodes visible from the top view
     //from left to right in Binary Tree.
-    
-    void fun(Node *root, int d, int l, map<int, pair<int, int>> &um)
+
+    void fun(Node *root, int d, int l, multimap<int, pair<int, int>> &um)
     {
-        if(root==NULL)
+        // cout << "fun" << endl;
+
+        if (root == NULL)
             return;
-        
-        if(um.count(d) == 0)
+
+        if (um.count(d) == 0)
         {
-            um[d] = make_pair(l, root->data);
+            um.insert(make_pair(d, make_pair(l, root->data)));
         }
         else
         {
-            if(um[d].first > l)
+            for (auto x : um)
             {
-                um[d].first = l;
-                um[d].second = root->data;
+                if (x.first == d)
+                {
+                    if (x.second.first < l)
+                    {
+                        x.second.first = l;
+                        x.second.second = root->data;
+                    }
+                    else if (x.second.first == l)
+                    {
+                        um.insert(make_pair(d, make_pair(l, root->data)));
+                        break;
+                    }
+                }
             }
         }
-        
-        fun(root->left, d-1, l+1, um);
-        fun(root->right, d+1, l+1, um);
+
+        fun(root->left, d - 1, l + 1, um);
+        fun(root->right, d + 1, l + 1, um);
     }
-    
+
     vector<int> topView(Node *root)
     {
         vector<int> ans;
-        
-        map<int, pair<int, int>> um;
-        
+
+        multimap<int, pair<int, int>> um;
+
         fun(root, 0, 1, um);
-        
-        
-        for(auto x: um)
+
+        for (auto x : um)
         {
             ans.push_back(x.second.second);
+            cout << x.second.second << " ";
         }
-        
+
         return ans;
     }
 };
