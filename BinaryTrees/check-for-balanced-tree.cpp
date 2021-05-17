@@ -89,13 +89,6 @@ bool isBalanced(Node *root);
 
 int main()
 {
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
-
-    // ios_base::sync_with_stdio(false);
-    // cin.tie(0);
 
     int t;
     scanf("%d ", &t);
@@ -136,8 +129,10 @@ int height(Node *root)
 
 bool isBalanced(Node *root)
 {
+    if (root == NULL)
+        return true;
 
-    if (abs(height(root->left) - height(root->right)) < 2)
+    if (((abs(height(root->left) - height(root->right)) <= 1) && (isBalanced(root->left)) && (isBalanced(root->right))))
         return true;
     else
         return false;
