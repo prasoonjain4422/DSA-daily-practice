@@ -1,3 +1,5 @@
+        
+
 // { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
@@ -30,52 +32,44 @@ struct Node
 class Solution
 {
     public:
-    Node *temp=NULL;
-    bool fun(Node* root ,int n1 ,int n2 )
+    Node* lca(Node* root ,int n1 ,int n2 )
     {
         if((root->data == n1)||(root->data == n2))
         {
-            temp = root;
-            return true;
+            return root;
         }
         
-        bool a=false, b=false;
+        Node *a=NULL, *b=NULL;
         
         if((root->left != NULL)&&(root->right != NULL))
         {
-            a = fun(root->left ,n1 ,n2);
-            b = fun(root->right ,n1 ,n2);
-            if(a&&b)
+            a = lca(root->left ,n1 ,n2);
+            b = lca(root->right ,n1 ,n2);
+            
+            if((a!=NULL)&&(b!=NULL))
             {
-                temp = root;
+                return root;
             }
-            return (a||b);
+
+            if(a!=NULL)
+                return a;
+            if(b!=NULL)
+                return b;
         }
-        
         
         if(root->left != NULL)
         {
-            a = fun(root->left ,n1 ,n2);
+            a = lca(root->left ,n1 ,n2);
             return a;
         }
         
         if(root->right != NULL)
         {
-            b = fun(root->right ,n1 ,n2);
+            b = lca(root->right ,n1 ,n2);
             return b;
         }
         
-        return false;
-    }
-    
-    
-    Node* lca(Node* root ,int n1 ,int n2 )
-    {
-        if(root == NULL)
-            return NULL;
-        
-        fun(root, n1, n2);
-        return temp;
+        return NULL;
     }
 };
 
