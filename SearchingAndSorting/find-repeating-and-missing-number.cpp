@@ -9,7 +9,7 @@ public:
     int *findTwoElement(int *a, int n) {
         
         int *ans = new int[2];
-        int x = 0, s = 0, i;
+        int i;
         
         for(i=0; i<n; i++)
         {
