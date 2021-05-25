@@ -11,8 +11,8 @@ using namespace std;
 class Solution
 {
 public:
-    //Function to count subarrays with sum equal to 0.
-    ll findSubarray(vector<ll> a, int n)
+    //Function to count subarrays with sum equal to 0
+    ll findSubarray(vector<ll> a, int n, int sum)
     {
 
         ll i, ans = 0, s = 0;
@@ -22,9 +22,9 @@ public:
         for (i = 0; i < n; i++)
         {
             s += a[i];
-            if (mm[s] > 0)
+            if (mm[s - sum] > 0)
             {
-                ans += mm[s];
+                ans += mm[s-sum];
                 // cout << ans << " " << i << endl;
             }
             mm[s]++;
@@ -49,15 +49,16 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n;
+        int n, s;
         cin >> n; //input size of array
-
+        cin >> s;
+        
         vector<ll> arr(n, 0);
 
         for (int i = 0; i < n; i++)
             cin >> arr[i]; //input array elements
         Solution ob;
-        cout << ob.findSubarray(arr, n) << "\n";
+        cout << ob.findSubarray(arr, n, s) << "\n";
     }
     return 0;
 } // } Driver Code Ends
