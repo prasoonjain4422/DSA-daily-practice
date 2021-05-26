@@ -1,1 +1,28 @@
--1
+324 mid 
+in r
+0
+162 mid 
+in l
+162
+243 mid 
+in r
+0
+202 mid 
+in r
+0
+182 mid 
+in r
+0
+172 mid 
+in r
+0
+167 mid 
+in r
+0
+164 mid 
+in r
+0
+163 mid 
+in l
+163
+163
