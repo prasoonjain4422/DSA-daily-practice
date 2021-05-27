@@ -39,12 +39,10 @@ void fun(vector<int> &a, int n, int k)
         }
     }
 
-    vector<int> v;
-    for (auto x = us.begin(); x != us.end(); x++)
-        v.push_back(a[*x - 1]);
+    vector<int> v(us.begin(), us.end());
 
     for (auto x = v.rbegin(); x != v.rend(); x++)
-        cout << *x;
+        cout << (a[*x - 1]);
 
     if (f == 1)
     {
@@ -58,7 +56,7 @@ void fun(vector<int> &a, int n, int k)
     }
     else
     {
-        cout<<it;
+        cout << it;
         us.insert(it);
         for (it = n; it >= 1; it--)
         {
@@ -92,7 +90,3 @@ int main()
     }
     return 0;
 }
-
-// This code is contributed by Vivek Garg in a
-// comment on below set 1.
-// www.geeksforgeeks.org/find-the-largest-subtree-in-a-tree-that-is-also-a-bst/
