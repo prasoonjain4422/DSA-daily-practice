@@ -1,28 +1,39 @@
-324 mid 
-in r
-0
-162 mid 
+0 203
+101 mid 
+j-- 2
+j-- 3
 in l
-162
-243 mid 
+2147483647
+152 mid 
+j-- 3
 in r
-0
-202 mid 
+152
+126 mid 
+j-- 3
 in r
-0
-182 mid 
+126
+113 mid 
+j-- 3
 in r
-0
-172 mid 
-in r
-0
-167 mid 
-in r
-0
-164 mid 
-in r
-0
-163 mid 
+113
+107 mid 
+j-- 2
+j-- 3
 in l
-163
-163
+113
+110 mid 
+j-- 2
+j-- 3
+in l
+113
+111 mid 
+j-- 2
+j-- 3
+in l
+113
+112 mid 
+j-- 2
+j-- 3
+in l
+113
+112
