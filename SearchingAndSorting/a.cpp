@@ -1,73 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int fact(int n)
+struct Node
 {
-    int p = 1;
-    for (int i = 2; i <= n; i++)
-        p *= i;
+    int data;;
+    Node *parent;
+};
 
-    return p;
-}
-
-void fun(vector<int> &a, int n, int k)
+int fun(Node *a, Node *b)
 {
-    cout << endl;
-    int it, i, s = 0, f;
-    unordered_set<int> us;
-
-    i = 1;
-    f = fact(n - i);
-
-    for (it = 1; it <= n; it++)
+    unordered_set<Node*> v;
+    while(a != NULL)
     {
-        if (us.find(it) != us.end())
-            continue;
-
-        if ((s + f) <= k)
+        if(a == b)
         {
-            s += f;
-            if (s == k)
-                break;
+            return v.size();
+        }
+        
+        v.insert(a);
+        a = a->parent;
+    }
+    
+    int i=0;
+    while(b != NULL)
+    {        
+        if(v.find(b) == v.end())
+        {
+            i++;
+            b = b->parent;
         }
         else
         {
-            us.insert(it);
-            it = 0;
-            f = f / (n - i);
-            i++;
+            return (distance(v.begin(), v.find(b)) + i);
         }
     }
-
-    vector<int> v;
-    for (auto x = us.begin(); x != us.end(); x++)
-        v.push_back(a[*x - 1]);
-
-    for (auto x = v.rbegin(); x != v.rend(); x++)
-        cout << *x;
-
-    if (f == 1)
-    {
-        for (it = 1; it <= n; it++)
-        {
-            if (us.find(it) == us.end())
-            {
-                cout << a[it - 1];
-            }
-        }
-    }
-    else
-    {
-        cout<<it;
-        us.insert(it);
-        for (it = n; it >= 1; it--)
-        {
-            if (us.find(it) == us.end())
-            {
-                cout << a[it - 1];
-            }
-        }
-    }
+    
+    return 0;
 }
 
 int main()
@@ -88,11 +56,6 @@ int main()
         for (i = 0; i < n; i++)
             cin >> a[i];
 
-        fun(a, n, k);
     }
     return 0;
 }
-
-// This code is contributed by Vivek Garg in a
-// comment on below set 1.
-// www.geeksforgeeks.org/find-the-largest-subtree-in-a-tree-that-is-also-a-bst/
