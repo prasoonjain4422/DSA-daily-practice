@@ -1,80 +1,63 @@
-#include <bits/stdc++.h>
+// { Driver Code Starts
+//Initial template for C++
+
+
+#include<bits/stdc++.h>
 using namespace std;
 
-struct Node
-{
-    int data;
-    ;
-    Node *parent;
-};
+ // } Driver Code Ends
+//User function template for C++
 
-int fun(Node *a, Node *b)
-{
-    unordered_set<Node *> v;
-    while (a != NULL)
+class Solution{
+    public:
+    string ExcelColumn(int N)
     {
-        if (a == b)
+        string ans = "";
+        
+        if(N < 27)
         {
-            return v.size();
-        }
-
-        v.insert(a);
-        a = a->parent;
-    }
-
-    int i = 0;
-    while (b != NULL)
-    {
-        if (v.find(b) == v.end())
-        {
-            i++;
-            b = b->parent;
+            ans += (char)(64 + N);
+            return ans;
         }
         else
         {
-            return (distance(v.begin(), v.find(b)) + i);
+            
+            int i=1, j, r;
+            
+            while(N>0)
+            {
+                r = N % 26;
+                
+                if(r == 0)
+                {
+                    ans += "Z";
+                    N = N/26 - 1;
+                }
+                else
+                {
+                    ans += (char)(64 + r);
+                    N = N/26;
+                }
+            }
+            
+            reverse(ans.begin(), ans.end());
+            return ans;
         }
     }
+};
 
-    return 0;
-}
-
+// { Driver Code Starts.
 int main()
 {
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
-
     int t;
-    cin >> t;
-    while (t--)
+    cin>>t;
+    while(t--)
     {
-        int n, i, k, j, s;
-        cin >> n;
-        i = 1;
-        s = 0;
-        while (n > (s + pow(26, i)))
-        {
-            s += pow(26, i);
-            i++;
-        }
-
-        j = ((n) / pow(26, i - 1));
-        if ((n % (int)pow(26, i - 1) == 0) && (i != 1))
-        {
-            j--;
-        }
-        while (i--)
-        {
-            // cout << j << " ";
-            char c = (64 + (j));
-            cout << c;
-            n -= j * pow(26, i);
-            j = (n / pow(26, i - 1));
-        }
-
-        cout << endl;
+        int n;
+        cin>>n;
+        Solution ob;
+        cout<<ob.ExcelColumn(n)<<endl;
     }
     return 0;
 }
+      // } Driver Code Ends
