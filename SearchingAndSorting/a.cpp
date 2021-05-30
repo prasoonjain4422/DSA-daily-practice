@@ -1,42 +1,50 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node
+bool isPrime(int n)
 {
-    int data;
-    ;
-    Node *parent;
-};
+    if (n == 1)
+        return false;
 
-int fun(Node *a, Node *b)
-{
-    unordered_set<Node *> v;
-    while (a != NULL)
+    for (int i = 2; i <= (n / 2); i++)
     {
-        if (a == b)
+        if (n % i == 0)
         {
-            return v.size();
-        }
-
-        v.insert(a);
-        a = a->parent;
-    }
-
-    int i = 0;
-    while (b != NULL)
-    {
-        if (v.find(b) == v.end())
-        {
-            i++;
-            b = b->parent;
-        }
-        else
-        {
-            return (distance(v.begin(), v.find(b)) + i);
+            return false;
         }
     }
 
-    return 0;
+    return true;
+}
+
+
+int fun(string s, int ind)
+{
+    int i, j, ans = 0, fans = 0, n = s.size();
+
+    if (ind >= n)
+        return 1;
+
+    // cout << "fun  " << ind << endl;
+
+    for (i = 1; (i + ind) <= s.size(); i++)
+    {
+        // cout << "lenght " << i << endl;
+
+        ans = 0;
+        j = stoi(s.substr(ind, min(i, n - ind)));
+
+        if (isPrime(j))
+        {
+            // cout << j << " selected ";
+            ans += fun(s, ind + i);
+        }
+
+        if (ans > 0)
+            fans += ans;
+    }
+
+    return fans;
 }
 
 int main()
@@ -48,33 +56,13 @@ int main()
 
     int t;
     cin >> t;
+    string s;
     while (t--)
     {
-        int n, i, k, j, s;
-        cin >> n;
-        i = 1;
-        s = 0;
-        while (n > (s + pow(26, i)))
-        {
-            s += pow(26, i);
-            i++;
-        }
+        cin >> s;
+        vector<int> v;
 
-        j = ((n) / pow(26, i - 1));
-        if ((n % (int)pow(26, i - 1) == 0) && (i != 1))
-        {
-            j--;
-        }
-        while (i--)
-        {
-            // cout << j << " ";
-            char c = (64 + (j));
-            cout << c;
-            n -= j * pow(26, i);
-            j = (n / pow(26, i - 1));
-        }
-
-        cout << endl;
+        cout << fun(s, 0);
     }
     return 0;
 }
