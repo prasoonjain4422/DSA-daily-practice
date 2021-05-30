@@ -11,49 +11,43 @@ class Solution
     public:
     //Function to detect cycle in an undirected graph.
     
-    bool dfs(int i, int V, vector<int>adj[], int parent, vector<bool> &vis)
-    {
-        
-        vis[i]= true;
-        int j;
-        
-        for(j=0; j<adj[i].size(); j++)
-        {
-            if(!vis[adj[i][j]])
-            {
-                if(dfs(adj[i][j], V, adj, i, vis))
-                {
-                    return true;
-                }
-            }
-            else if(adj[i][j] != parent)
-            {
-                return true;
-            }
-            
-        }
-        
-        return false;
-    }
-    
     
 	bool isCycle(int V, vector<int>adj[])
 	{
 	    
 	    
 	    vector<bool> vis(V);
-	    int i;
+	    queue<pair<int, int>> q;
+	    int i, k;
+	    pair<int, int> j;
 	    
 	    for(i=0; i<V; i++)
 	    {
 	        if(!vis[i])
 	        {
-	            if(dfs(i, V, adj, -1, vis))
-	                return true;
-	            
+        	    q.push(make_pair(i, -1));
+        	    
+        	    while(!q.empty())
+        	    {
+        	        
+        	        j = q.front();
+        	        q.pop();
+        	        vis[j.first] = true;
+        	        
+        	        for(k=0; k<adj[j.first].size(); k++)
+        	        {
+        	            if(!vis[adj[j.first][k]])
+        	            {
+        	                q.push(make_pair(adj[j.first][k], j.first));
+        	            }
+        	            else if(adj[j.first][k] != j.second)
+        	            {
+        	                return true;
+        	            }
+        	        }
+        	    }
 	        }
 	    }
-	    
 	    
 	    return false;
 	}
