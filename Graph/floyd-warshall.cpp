@@ -19,12 +19,19 @@ class Solution {
 	        {
         	    for(j=0; j<n; j++)
         	    {
-        	        if(mat[i][k] + mat[k][j] < mat[i][j])
-            	       mat[i][j] = mat[i][k] + mat[k][j];
+        	        if((mat[i][j] == -1)&&(mat[i][k] != -1)&&(mat[k][j] != -1))
+        	        {
+            	        mat[i][j] = mat[i][k] + mat[k][j];
+        	            
+        	        }
+        	        if((mat[i][j] != -1)&&(mat[i][k] != -1)&&(mat[k][j] != -1))
+        	        {
+            	        if(mat[i][k] + mat[k][j] < mat[i][j])
+                	       mat[i][j] = mat[i][k] + mat[k][j];
+        	        }
         	    }
 	        }
 	    }
-	    
 	}
 };
 
