@@ -78,13 +78,6 @@ int main()
             cout<<x.second<<endl;
         }
         
-        
-        
-        
-        
-        
-        
-        
     }
 
     return 0;
