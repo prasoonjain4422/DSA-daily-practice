@@ -33,10 +33,8 @@ public:
         int dp[100][102];
         memset(dp, -1, sizeof(dp));
         
-        vector<pair<int, int>> adj[n];
-        vector<bool> vis(n, false);
-        map<pair<int, int>, int> price;
         
+        vector<pair<int, int>> adj[n];
         for(auto x: flights)
         {
             adj[x[0]].push_back({x[1], x[2]});
