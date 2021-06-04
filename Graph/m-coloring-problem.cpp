@@ -48,7 +48,6 @@ bool graphColoring(bool graph[101][101], int m, int V)
                             return false;
                     }
                 }
-                // color[i] = c;
             }
         }
     }
