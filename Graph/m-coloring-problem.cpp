@@ -1,4 +1,3 @@
-// { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -9,46 +8,47 @@ using namespace std;
 bool graphColoring(bool graph[101][101], int m, int V)
 {
 
-    vector<int> color(V, -1);
+    vector<int> color(V, 1);
+    vector<bool> vis(V, false);
+    
     int i, j, k, c = 1;
     queue<int> q;
 
     for (k = 0; k < V; k++)
     {
-        if (color[k] == -1)
+        if (!vis[k])
         {
             q.push(k);
+            vis[k] = true;
             while (!q.empty())
             {
                 i = q.front();
                 q.pop();
 
-                if (color[i] != -1)
+                if (vis[i])
                     continue;
 
-                c = 1;
                 for (j = 0; j < V; j++)
                 {
                     if (graph[i][j] == 1)
                     {
-
                         if (color[j] == -1)
                         {
                             q.push(j);
                         }
-                        else
+                        
+                        if (color[j] == color[i])
                         {
-                            if (color[j] == c)
-                            {
-                                c++;
-                            }
+                            color[j]++;
                         }
+                        
+                        c = max(color[i], color[j]);
 
                         if (c > m)
                             return false;
                     }
                 }
-                color[i] = c;
+                // color[i] = c;
             }
         }
     }
