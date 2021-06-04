@@ -3,7 +3,9 @@ using namespace std;
 
 int timer = 1;
 
-void dfs(int i, vector<pair<int, int>> &ans, vector<int> adj[], vector<bool> &vis, vector<int> &dis, vector<int> &low, vector<int> &parent)
+//  leafs are not articulation points
+
+void dfs(int i, vector<int> &ans, vector<int> adj[], vector<bool> &vis, vector<int> &dis, vector<int> &low, vector<int> &parent)
 {
 
     vis[i] = true;
@@ -18,12 +20,19 @@ void dfs(int i, vector<pair<int, int>> &ans, vector<int> adj[], vector<bool> &vi
             dfs(x, ans, adj, vis, dis, low, parent);
 
             low[i] = min(low[i], low[x]);
-
-            if (low[x] > dis[i])
+            
+            
+            if(parent[i] == -1)
             {
-                // ans.push_back({i, x});
-                cout << i << " " << x << endl;
+                ans[i] = 1;
             }
+            if(low[x] > dis[i])
+            {
+                ans[i] = 1;
+            }
+            
+            
+            
         }
         else if (x != parent[i])
         {
@@ -51,12 +60,22 @@ int main()
         adj[j].push_back(i);
     }
 
-    vector<pair<int, int>> ans;
+    vector<int> ans(n, 0);
     vector<bool> vis(n, false);
     vector<int> dis(n, 0);
     vector<int> parent(n, -1);
     vector<int> low(n, 0);
     dfs(0, ans, adj, vis, dis, low, parent);
-
+    
+    i = 0;
+    for(auto x: ans)
+    {
+        if(x)
+        {
+            cout<<i<<" ";
+        }
+        i++;
+    }
+            
     return 0;
 }
