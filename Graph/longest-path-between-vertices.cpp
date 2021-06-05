@@ -8,55 +8,76 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    int i, j, k, n, e, s, d;
+    int i, j, k, n, e, s, d, w;
     cin >> n >> e;
-    vector<int> adj[n], adjt[n];
+    vector<pair<int, int>> adj[n];
+    vector<bool> vis(n, false);
+    vector<int> ind(n, 0);
+    queue<int> q;
+    vector<int> topo;
 
     while (e--)
     {
-        cin >> i >> j;
-        adj[i].push_back(j);
-        adjt[j].push_back(i);
+        cin >> i >> j >> w;
+        adj[i].push_back({j, w});
+        ind[j]++;
     }
-    cin >> s >> d;
-
-    vector<bool> vis(n, false);
-    queue<pair<int, int>> q;
-    q.push({s, 0});
-    vis[s] = true;
+    cin >> s;
+    
+    
+    // topological sort is only for DAG
+    
+    for (i = 0; i < n; i++)
+    {
+        if (ind[i] == 0)
+            q.push(i);
+    }
 
     while (!q.empty())
     {
-
-        i = (q.front()).first;
-        j = (q.front()).second;
+        i = q.front();
         q.pop();
 
-        if (i == d)
-        {
-            cout << j;
-            return 0;
-        }
+        topo.push_back(i);
+        cout << i << " ";
 
         for (auto x : adj[i])
         {
-            if (!vis[x])
-            {
-                vis[x] = true;
-                q.push({x, j});
-            }
+            ind[x.first]--;
+            if (ind[x.first] == 0)
+                q.push(x.first);
         }
+    }
+    cout << endl;
 
-        for (auto x : adjt[i])
+    int dist[n];
+    memset(dist, -1, sizeof(dist));
+    dist[s] = 0;
+    for (auto x : adj[s])
+    {
+        dist[x.first] = x.second;
+    }
+
+
+    for (j = 0; j < topo.size(); j++)
+    {
+        i = topo[j];
+        if (dist[i] != -1)
         {
-            if (!vis[x])
+            for (auto x : adj[i])
             {
-                vis[x] = true;
-                q.push({x, j + 1});
+                if (dist[x.first] < (dist[i] + x.second))
+                {
+                    dist[x.first] = (dist[i] + x.second);
+                }
             }
         }
     }
 
-    cout << "-1";
+    for (i = 0; i < n; i++)
+    {
+        cout << dist[i] << " ";
+    }
+
     return 0;
 }
