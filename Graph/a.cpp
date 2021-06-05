@@ -1,115 +1,41 @@
-// { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node
+int timer = 1;
+
+//  leafs are not articulation points
+
+void dfs(int i, vector<int> &ans, vector<int> adj[], vector<bool> &vis, vector<int> &dis, vector<int> &low, vector<int> &parent)
 {
-    int data;
-    struct Node *left;
-    struct Node *right;
-};
-// Utility function to create a new Tree Node
-Node *newNode(int val)
-{
-    Node *temp = new Node;
-    temp->data = val;
-    temp->left = NULL;
-    temp->right = NULL;
 
-    return temp;
-}
-// Function to Build Tree
-Node *buildTree(string str)
-{
-    // Corner Case
-    if (str.length() == 0 || str[0] == 'N')
-        return NULL;
+    vis[i] = true;
+    dis[i] = timer++;
+    low[i] = dis[i];
 
-    // Creating vector of strings from input
-    // string after spliting by space
-    vector<string> ip;
-
-    istringstream iss(str);
-    for (string str; iss >> str;)
-        ip.push_back(str);
-
-    // Create the root of the tree
-    Node *root = newNode(stoi(ip[0]));
-
-    // Push the root to the queue
-    queue<Node *> queue;
-    queue.push(root);
-
-    // Starting from the second element
-    int i = 1;
-    while (!queue.empty() && i < ip.size())
+    for (auto x : adj[i])
     {
+        if (!vis[x])
+        {
+            parent[x] = i;
+            dfs(x, ans, adj, vis, dis, low, parent);
 
-        // Get and remove the front of the queue
-        Node *currNode = queue.front();
-        queue.pop();
+            low[i] = min(low[i], low[x]);
 
-        // Get the current node's value from the string
-        string currVal = ip[i];
-
-        // If the left child is not null
-        if (currVal != "N")
+            if (parent[i] == -1)
+            {
+                ans[i] = 1;
+            }
+            if (low[x] > dis[i])
+            {
+                ans[i] = 1;
+            }
+        }
+        else if (x != parent[i])
         {
 
-            // Create the left child for the current node
-            currNode->left = newNode(stoi(currVal));
-
-            // Push it to the queue
-            queue.push(currNode->left);
+            low[i] = min(low[i], dis[x]);
         }
-
-        // For the right child
-        i++;
-        if (i >= ip.size())
-            break;
-        currVal = ip[i];
-
-        // If the right child is not null
-        if (currVal != "N")
-        {
-
-            // Create the right child for the current node
-            currNode->right = newNode(stoi(currVal));
-
-            // Push it to the queue
-            queue.push(currNode->right);
-        }
-        i++;
     }
-
-    return root;
-}
-
-int maxSum(Node *root)
-{
-    if(root == NULL)
-        return 0;
-    
-    int a = 0;
-    if(root->left != NULL)
-    {
-        if(root->left->left != NULL)
-            a += maxSum(root->left->left);
-        
-        if(root->left->right != NULL)
-            a += maxSum(root->left->right);
-    }
-    
-    if(root->right != NULL)
-    {
-        if(root->right->left != NULL)
-            a += maxSum(root->left->left);
-        
-        if(root->right->right != NULL)
-            a += maxSum(root->left->right);
-    }
-    
-    return max((root->data + a), (maxSum(root->left) + maxSum(root->right)));
 }
 
 int main()
@@ -119,35 +45,55 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    // ios_base::sync_with_stdio(false);
-    // cin.tie(0);
+    int i, j, k, n, e, s, d;
+    cin >> n >> e;
+    vector<int> adj[n], adjt[n];
 
-    int t;
-    scanf("%d ", &t);
-    while (t--)
+    while (e--)
     {
-        string s;
-        getline(cin, s);
-        Node *root = buildTree(s);
-        cout << maxSum(root) << endl;
+        cin >> i >> j;
+        adj[i].push_back(j);
+        adjt[j].push_back(i);
     }
+    cin >> s >> d;
+
+    vector<bool> vis(n, false);
+    queue<pair<int, int>> q;
+    q.push({s, 0});
+    vis[s] = true;
+
+    while (!q.empty())
+    {
+
+        i = (q.front()).first;
+        j = (q.front()).second;
+        q.pop();
+
+        if (i == d)
+        {
+            cout << j;
+            return 0;
+        }
+
+        for (auto x : adj[i])
+        {
+            if (!vis[x])
+            {
+                vis[x] = true;
+                q.push({x, j});
+            }
+        }
+
+        for (auto x : adjt[i])
+        {
+            if (!vis[x])
+            {
+                vis[x] = true;
+                q.push({x, j + 1});
+            }
+        }
+    }
+
+    cout << "-1";
     return 0;
-} // } Driver Code Ends
-
-/* A binary tree node structure
-
-struct Node
-{
-    int data;
-    struct Node* left;
-    struct Node* right;
-    
-    Node(int x){
-        data = x;
-        left = right = NULL;
-    }
-};
- */
-
-//Function to check whether a binary tree is balanced or not.
-
+}
