@@ -12,27 +12,28 @@ class Solution
     long long minCost(long long a[], long long n) 
     {
         
-        priority_queue<int> pq;
-        long long i, s = 0;
+        priority_queue<int, vector<int>, greater<int>> pq;
+        long long int i, s1, s2;
         
         for(i=0; i<n; i++)
         {
             pq.push(a[i]);
         }
         
-        s = pq.top();
-        pq.pop();
-        while(!pq.empty())
+        i = 0;
+        while(pq.size() != 1)
         {
-            i = pq.top();
+            
+            s1 = pq.top();
+            pq.pop();
+            s2 = pq.top();
             pq.pop();
             
-            s += (s + i);
-            
+            i += (s1 + s2);
+            pq.push(s1+s2);
         }
         
-        
-        return s;
+        return i;
     }
 };
 
