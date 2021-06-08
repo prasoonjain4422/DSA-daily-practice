@@ -13,7 +13,7 @@ public:
     int nCr(int n, int r)
     {
         
-        // nCr = nC(r-1) + (n-1)C(r-1)
+        // nCr = (n-1)Cr + (n-1)C(r-1)
         
         if(r > n)
             return 0;
