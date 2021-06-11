@@ -1,22 +1,28 @@
 // { Driver Code Starts
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-// } Driver Code Ends
+ // } Driver Code Ends
+
+
 
 int dp[201][201];
 class Solution
 {
-public:
-    //Function to find minimum number of attempts needed in
+    public:
+    //Function to find minimum number of attempts needed in 
     //order to find the critical floor.
-    int eggDrop(int n, int k)
+    int f = 1;
+    int eggDrop(int n, int k) 
     {
-
+        
         if ((k == 1) || (k == 0) || (n == 1))
         {
             return k;
         }
+        
+        if(dp[n][k] != -1)
+            return dp[n][k];
 
         int i, j;
 
@@ -29,29 +35,28 @@ public:
         }
 
         return dp[n][k];
+        
+        
+        
     }
 };
 
 // { Driver Code Starts.
 int main()
 {
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
     //taking total testcases
+memset(dp, -1, sizeof(dp));
     int t;
-    cin >> t;
-    while (t--)
+    cin>>t;
+    while(t--)
     {
         //taking eggs and floors count
         int n, k;
-        memset(dp, -1, sizeof(dp));
-        cin >> n >> k;
+        cin>>n>>k;
         Solution ob;
         //calling function eggDrop()
-        cout << ob.eggDrop(n, k) << endl;
+        cout<<ob.eggDrop(n, k)<<endl;
     }
     return 0;
 }
-// } Driver Code Ends
+  // } Driver Code Ends
