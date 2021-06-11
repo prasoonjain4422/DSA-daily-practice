@@ -13,9 +13,15 @@ class Solution{
         
         int i, m, ans = 1;
         int step = a[0];
-        m = a[0];
+        m = 0;
         
-        for(i=1; i<n; i++)
+        if(step == 0)
+        {
+            return -1;
+        }
+        
+        
+        for(i=1; i<n-1; i++)
         {
             step--;
             
@@ -23,17 +29,16 @@ class Solution{
             
             if(step == 0)
             {
-                ans++;
-                if(m == 0)
-                    break;
                 
-                step = m;
+                ans++;
+                if(m-i <= 0)
+                {
+                    return -1;
+                }
+                    
+                step = m-i;
+                m = 0;
             }
-        }
-        
-        if(i<n)
-        {
-            return -1;
         }
         
         return ans;
