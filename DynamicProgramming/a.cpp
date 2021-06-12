@@ -87,28 +87,28 @@ Node *buildTree(string str)
 
 int maxSum(Node *root)
 {
-    if(root == NULL)
+    if (root == NULL)
         return 0;
-    
+
     int a = 0;
-    if(root->left != NULL)
+    if (root->left != NULL)
     {
-        if(root->left->left != NULL)
+        if (root->left->left != NULL)
             a += maxSum(root->left->left);
-        
-        if(root->left->right != NULL)
+
+        if (root->left->right != NULL)
             a += maxSum(root->left->right);
     }
-    
-    if(root->right != NULL)
+
+    if (root->right != NULL)
     {
-        if(root->right->left != NULL)
+        if (root->right->left != NULL)
             a += maxSum(root->left->left);
-        
-        if(root->right->right != NULL)
+
+        if (root->right->right != NULL)
             a += maxSum(root->left->right);
     }
-    
+
     return max((root->data + a), (maxSum(root->left) + maxSum(root->right)));
 }
 
@@ -150,4 +150,3 @@ struct Node
  */
 
 //Function to check whether a binary tree is balanced or not.
-
