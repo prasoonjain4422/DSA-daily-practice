@@ -2,45 +2,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-    //largest palindromic subsequence
+//largest palindromic subsequence
 
 int lps(string s)
 {
-    
+
+    string s2 = s;
+    reverse(s2.begin(), s2.end());
     int i, j, ans = 0, n = s.length();
-    int dp[n+1];
-    int se[n+1];
-    memset(dp, 0, sizeof(dp));
-    
-    for(i=2; i<=n; i++)
+    int dp[n + 1];
+    int se[n + 1];
+    memset(dp, 1, sizeof(dp));
+
+    for (i = 1; i <= n; i++)
     {
-        for(j = 1; ; j++)
+        for (j = i - 1; j >= 0; j--)
         {
-            if(dp[i-1] > 0)
+
+            if (s[i - 1] == s2[j - 1])
             {
-                if(s[i-1] == s[i-1-j-2*dp[i-1]])
-                {
-                    dp[i] = dp[i-1] + 1;
-                }
-                else
-                {
-                    dp[i] = dp[i-1];
-                }
+                dp[i] = dp[i - 1] + 1;
+                break;
             }
-            else
-            {
-                if(s[i-1] == s[i-2])
-                {
-                    dp[i] = 1;
-                }
-            }
-            
         }
-        
-        ans = max(ans, dp[i]);
+        if (j < 0)
+        {
+            dp[i] = dp[i - 1];
+        }
     }
-    
-    return (2*ans);
+
+    return (dp[n]);
 }
 
 int main()
