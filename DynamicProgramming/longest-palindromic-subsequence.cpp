@@ -4,34 +4,36 @@ using namespace std;
 
 //largest palindromic subsequence
 
-int lps(string s)
+int dp[1000][1000];
+
+int lps(string s, int i, int j)
 {
 
-    string s2 = s;
-    reverse(s2.begin(), s2.end());
-    int i, j, ans = 0, n = s.length();
-    int dp[n + 1];
-    int se[n + 1];
-    memset(dp, 1, sizeof(dp));
-
-    for (i = 1; i <= n; i++)
+    if (i == j)
     {
-        for (j = i - 1; j >= 0; j--)
-        {
-
-            if (s[i - 1] == s2[j - 1])
-            {
-                dp[i] = dp[i - 1] + 1;
-                break;
-            }
-        }
-        if (j < 0)
-        {
-            dp[i] = dp[i - 1];
-        }
+        return 1;
+    }
+    
+    if (i > j)
+    {
+        return 0;
+    }
+    
+    if(dp[i][j] != -1)
+    {
+        return dp[i][j];
     }
 
-    return (dp[n]);
+    if (s[i] == s[j])
+    {
+        dp[i][j] = lps(s, i + 1, j - 1) + 2;
+    }
+    else
+    {
+        dp[i][j] = max(lps(s, i + 1, j), lps(s, i, j - 1));
+    }
+
+    return (dp[i][j]);
 }
 
 int main()
@@ -49,8 +51,9 @@ int main()
     while (t--)
     {
         string s;
+        memset(dp, -1, sizeof(dp));
         getline(cin, s);
-        cout << lps(s) << endl;
+        cout << lps(s, 0, s.length() - 1) << endl;
     }
     return 0;
 }
