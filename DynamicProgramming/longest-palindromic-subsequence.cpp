@@ -1,36 +1,50 @@
-// { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
 //largest palindromic subsequence
 
 int dp[1000][1000];
+int ans;
 
 int lps(string s, int i, int j)
 {
 
     if (i == j)
     {
-        return 1;
+        // ans += 1;
+        return 0;
     }
-    
+
     if (i > j)
     {
         return 0;
     }
-    
-    if(dp[i][j] != -1)
+
+    if (dp[i][j] != -1)
     {
         return dp[i][j];
     }
 
     if (s[i] == s[j])
     {
-        dp[i][j] = lps(s, i + 1, j - 1) + 2;
+        int l = lps(s, i + 1, j - 1);
+        
+        if(l == 1)
+        {
+            dp[i][j] = (j - i - 1) + 1;        
+        }
+        else
+        {
+            dp[i][j] = (j - i - 1) + (l + 1);
+        }
+
+        ans += dp[i][j];
+        cout << ans << endl;
     }
     else
     {
         dp[i][j] = max(lps(s, i + 1, j), lps(s, i, j - 1));
+        // ans += dp[i][j];
     }
 
     return (dp[i][j]);
@@ -52,8 +66,12 @@ int main()
     {
         string s;
         memset(dp, -1, sizeof(dp));
+        ans = 0;
         getline(cin, s);
-        cout << lps(s, 0, s.length() - 1) << endl;
+        int n = 0;
+        n = s.length();
+        lps(s, 0, s.length() - 1);
+        cout << "ans = " << ans + n << endl;
     }
     return 0;
 }
