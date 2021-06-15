@@ -1,56 +1,48 @@
+// { Driver Code Starts
+// Counts Palindromic Subsequence in a given String
 #include <bits/stdc++.h>
 using namespace std;
 
-//largest palindromic subsequence
+// } Driver Code Ends
 
+string a;
+const int M = 1000000007;
 long long int dp[1000][1000];
-string ans;
-
-// int lpsutil(string s, int i, int j)
-// {
-
-//     if(i>j)
-//         return 0;
-
-//     if(i==j)
-//         return 1;
-
-//     if(s[i] == s[j])
-//     {
-//         dp[i][j] = lpsutil(s, i+1, j-1);
-//     }
-//     else
-//     {
-//     }
-
-
-// }
-
-int lps(string s, int i, int j)
+class Solution
 {
-
-    if (i > j)
-        return 0;
-
-    if (i == j)
-        return 1;
-    
-    if(dp[i][j] != -1)
+public:
+    /*You are required to complete below method */
+    void countPS(string &s, int i, int j)
     {
-        return dp[i][j];
-    }
-    
-    if(s[i] == s[j])
-    {
-        dp[i][j] = lps(s, i+1, j-1)
-    }
-    
-    
-    
-    
-    
-}
 
+        if (i > j)
+            return;
+
+        if (s[i] == s[j])
+        {
+            a = a + s[i];
+            countPS(s, i + 1, j - 1);
+            a = a + s[j];
+        }
+        else
+        {
+            a = "";
+            countPS(s, i + 1, j);
+            string b = a;
+            a = "";
+            countPS(s, i, j - 1);
+            if (b.length() > a.length())
+            {
+                a = b;
+            }
+        }
+        
+        return;
+    }
+};
+
+// { Driver Code Starts.
+// Driver program
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -58,20 +50,16 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    // ios_base::sync_with_stdio(false);
-    // cin.tie(0);
-
     int t;
-    scanf("%d ", &t);
+    cin >> t;
     while (t--)
     {
-        string s;
+        string str;
+        cin >> str;
+        a = "";
         memset(dp, -1, sizeof(dp));
-        getline(cin, s);
-        ans = "";
-        int n = 0;
-        n = s.length();
-        cout << lps(s, 0, n - 1) << endl;
+        Solution ob;
+        ob.countPS(str, 0, str.length() - 1);
+        cout << a << endl;
     }
-    return 0;
-}
+} // } Driver Code Ends
