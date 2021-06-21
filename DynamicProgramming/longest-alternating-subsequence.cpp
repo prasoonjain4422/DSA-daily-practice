@@ -1,10 +1,3 @@
-// { Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-
-class Solution
-{
-public:
     int AlternatingaMaxLength(vector<int> &a)
     {
 
@@ -82,28 +75,3 @@ public:
 
         return len;
     }
-};
-
-int main()
-{
-
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
-
-    int tc;
-    cin >> tc;
-    while (tc--)
-    {
-        int n;
-        cin >> n;
-        vector<int> nums(n);
-        for (int i = 0; i < n; i++)
-            cin >> nums[i];
-        Solution obj;
-        int ans = obj.AlternatingaMaxLength(nums);
-        cout << ans << "\n";
-    }
-    return 0;
-}
