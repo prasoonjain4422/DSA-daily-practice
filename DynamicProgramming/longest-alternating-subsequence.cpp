@@ -40,14 +40,20 @@ public:
 
                 if (ad[j] == 0)
                 {
-                    dp[i] = 2;
-                    if (a[j] > a[i])
+                    
+                    if(dp[i] == 1)
                     {
-                        ad[i] = 1;
-                    }
-                    else
-                    {
-                        ad[i] = -1;
+                        
+                        dp[i] = 1;
+                        if (a[j] > a[i])
+                        {
+                            ad[i] = 1;
+                        }
+                        else
+                        {
+                            ad[i] = -1;
+                        }
+                        
                     }
                 }
                 else if ((ad[j] == 1) && (a[j] < a[i]))
