@@ -1,5 +1,3 @@
-4
-aaa
-abcd
-fsadddajg
-aacabdkacaa
+1
+6
+3 12 19 6 1 13
