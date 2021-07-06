@@ -1,33 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int dp[1001][1001];
-
-int fun(int n, int p)
-{
-
-    if (n == 1)
-        return p;
-
-    if (dp[n][p] != -1)
-    {
-        cout << dp[n][p] << " " << n << " " << p << endl;
-        return dp[n][p];
-    }
-
-    int i, ans = 0;
-
-    for (i = 1; i <= (n / 2); i++)
-    {
-        if (n % i == 0)
-        {
-            ans = max(ans, fun(i, (n * p) / i));
-        }
-    }
-
-    return dp[n][p] = (ans + p);
-}
-
 int main()
 {
 
@@ -36,24 +9,79 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
+    int n, m, t, c, i, u, v, j;
+    cin >> n >> m >> t >> c;
+    bool ch = false;
+    vector<int> adj[n + 1];
+    vector<bool> vis(n + 1);
 
-    int t;
-    scanf("%d ", &t);
-    while (t--)
+    for (i = 0; i < m; i++)
     {
+        cin >> u >> v;
 
-        memset(dp, -1, sizeof(dp));
-        int n, i, a;
-        cin >> n;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
 
-        int ans = 0;
-        for (i = 0; i < n; i++)
+    queue<pair<int, int>> q;
+    q.push({1, 0});
+
+    int ans = -1;
+    u = 0;
+    while (!q.empty())
+    {
+        i = (q.front()).first;
+        v = (q.front()).second;
+        q.pop();
+
+        if (i == n)
         {
-            cin >> a;
-            ans += fun(a, 1);
+            if ((ch == false) || (u == v))
+            {
+                u = v;
+                ch = true;
+                continue;
+            }
+            else
+            {
+                ans = v;
+                break;
+            }
         }
+
+        vis[i] = true;
+        for (j = 0; j < adj[i].size(); j++)
+        {
+            q.push({adj[i][j], v + 1});
+        }
+    }
+
+    if (ans == -1)
+    {
+        cout << "-1" << endl;
+    }
+    else
+    {
+        u = ans;
+        ans = 0;
+        // cout << u << endl;
+
+        i = c;
+        u--;
+        while (u--)
+        {
+            if ((i / t) % 2 != 0)
+            {
+                ans += t - (i % t) + c;
+            }
+
+            i = ans+c;
+        }
+
+        ans += c;
 
         cout << ans << endl;
     }
+
     return 0;
 }
