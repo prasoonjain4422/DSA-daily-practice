@@ -6,7 +6,7 @@ using namespace std;
 long long maximumAmount(int a[], int n)
 {
     
-    
+    gkdh
     
     
     
