@@ -10,7 +10,7 @@ public:
     long long getCount(int n)
     {
 
-        int dp[n + 1][10];
+        long long dp[n + 1][10];
         int i, j;
         memset(dp, 0, sizeof(dp));
 
