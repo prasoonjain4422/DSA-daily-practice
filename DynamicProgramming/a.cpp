@@ -1,5 +1,48 @@
 #include <bits/stdc++.h>
+const int M = 1000000007;
+
 using namespace std;
+int n, k;
+
+int paint(int i, int d, vector<int> adj[], int dp[][2])
+{
+
+    int ans = 0, ans2 = 1;
+    if (d <= 0)
+    {
+        if (dp[i][0] == -1)
+        {
+
+            ans = 1;
+            for (auto x : adj[i])
+            {
+                ans = (ans * paint(x, k - 1, adj, dp)) % M;
+            }
+
+            dp[i][0] = ans;
+        }
+        else
+        {
+            ans = dp[i][0];
+        }
+    }
+
+    if (dp[i][1] == -1)
+    {
+        for (auto x : adj[i])
+        {
+            ans2 = (ans2 * paint(x, d - 1, adj, dp)) % M;
+        }
+
+        dp[i][1] = ans2;
+    }
+    else
+    {
+        ans2 = dp[i][1];
+    }
+
+    return (ans + ans2) % M;
+}
 
 int main()
 {
@@ -9,79 +52,27 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    int n, m, t, c, i, u, v, j;
-    cin >> n >> m >> t >> c;
-    bool ch = false;
+    int i, j, p;
+
+    cin >> n;
+    cin >> k;
+
+    int dp[n + 1][2];
+    memset(dp, -1, sizeof(dp));
+
     vector<int> adj[n + 1];
-    vector<bool> vis(n + 1);
+    int root;
 
-    for (i = 0; i < m; i++)
+    for (i = 1; i <= n; i++)
     {
-        cin >> u >> v;
-
-        adj[u].push_back(v);
-        adj[v].push_back(u);
+        cin >> p;
+        if (p == -1)
+            root = i;
+        else
+            adj[p].push_back(i);
     }
 
-    queue<pair<int, int>> q;
-    q.push({1, 0});
-
-    int ans = -1;
-    u = 0;
-    while (!q.empty())
-    {
-        i = (q.front()).first;
-        v = (q.front()).second;
-        q.pop();
-
-        if (i == n)
-        {
-            if ((ch == false) || (u == v))
-            {
-                u = v;
-                ch = true;
-                continue;
-            }
-            else
-            {
-                ans = v;
-                break;
-            }
-        }
-
-        vis[i] = true;
-        for (j = 0; j < adj[i].size(); j++)
-        {
-            q.push({adj[i][j], v + 1});
-        }
-    }
-
-    if (ans == -1)
-    {
-        cout << "-1" << endl;
-    }
-    else
-    {
-        u = ans;
-        ans = 0;
-        // cout << u << endl;
-
-        i = c;
-        u--;
-        while (u--)
-        {
-            if ((i / t) % 2 != 0)
-            {
-                ans += t - (i % t) + c;
-            }
-
-            i = ans+c;
-        }
-
-        ans += c;
-
-        cout << ans << endl;
-    }
+    cout << paint(root, 0, adj, dp) << endl;
 
     return 0;
 }
