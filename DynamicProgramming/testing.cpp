@@ -21,9 +21,6 @@ int main()
             n = n&(~(1<<i));
         }
         
-        
-        
-        
     }
     return 0;
 } // } Driver Code Ends
