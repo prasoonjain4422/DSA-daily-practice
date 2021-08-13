@@ -14,6 +14,7 @@ int main()
         int n = 18;
         int i = log2(n);
         
+        
         while(n>0)
         {
             cout<<n<<endl;
