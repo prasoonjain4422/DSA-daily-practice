@@ -9,9 +9,16 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    long long  i, j, a, b, ans = 0, temp = 0;
+    long long i, j, a, b, ans = 0, temp = 0;
+    int sign = 1;
+
     cin >> a >> b;
     //  (a/b)
+
+    if ((a < 0) && (b >= 0))
+        sign = 0;
+    else if ((a >= 0) && (b < 0))
+        sign = 0;
 
     for (i = 31; i >= 0; i--)
     {
@@ -24,6 +31,10 @@ int main()
         }
     }
 
+    if (!sign)
+        cout << "-";
+    
+    
     cout << ans << endl;
 
     return 0;
