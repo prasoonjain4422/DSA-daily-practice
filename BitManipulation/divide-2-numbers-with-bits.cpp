@@ -9,9 +9,9 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    int i, j, a, b, ans = 0, temp = 0;
-    cin >> a >> b; //  (a/b)
-            cout<<i<<" rthgf ";
+    long long  i, j, a, b, ans = 0, temp = 0;
+    cin >> a >> b;
+    //  (a/b)
 
     for (i = 31; i >= 0; i--)
     {
@@ -19,8 +19,8 @@ int main()
         {
             temp += (b << i);
             ans = ans | (1LL << i);
-            cout<<i<<" rthgf ";
-            cout<<(temp + (b << i))<<endl;
+            // cout << i << " rthgf ";
+            // cout << (temp + (b << i)) << endl;
         }
     }
 
