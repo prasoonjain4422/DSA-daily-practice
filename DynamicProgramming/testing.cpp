@@ -1,9 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool cmp(int a[2], int b[2])
+int k, x, y, n, g, len, ans = 0;
+int solve(vector<vector<int>> &a, int i, vector<bool> visg)
 {
-    return (a[0] < b[0]);
+    if (i >= n)
+    {
+        for (int j = 0; j < g; j++)
+        {
+            if (!visg[j])
+            {
+                return INT_MIN;
+            }
+        }
+        return 0;
+    }
+
+    int ans = 0, ans2;
+    for (int j = 0; j < g; j++)
+    {
+        visg[j] = true;
+        ans2 = solve(a, i + 1, visg) + a[i][j];
+        ans = max(ans, ans2);
+        visg[j] = false;
+    }
+
+    return ans;
 }
 
 int main()
@@ -13,45 +35,21 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    int i, j, k, x, y, n, m, len, ans = 0;
-    cin >> n >> m;
+    int i, j;
+    cin >> n >> g;
 
-    vector<vector<int>> a(n, vector<int>(m));
+    vector<vector<int>> a(n, vector<int>(g, 0));
+    vector<bool> visg(g, false);
 
     for (i = 0; i < n; i++)
     {
-        for (j = 0; j < m; j++)
+        for (j = 0; j < g; j++)
         {
             cin >> a[i][j];
         }
     }
 
-
-    for (len = 1; len <= n; len++)
-    {
-        for (i = 0; (i+len) <= n; i++)
-        {
-            j = i + len - 1;
-            
-            for(k=0; k<m; k++)
-            {
-                
-                y = 0;
-                for(x=i; x<=j; x++)
-                {
-                    y += a[x][k];
-                }
-                
-                if(y%2 != 0)
-                    break;
-            }
-            
-            if(k==m)
-                ans++;
-        }
-    }
-
-    cout << ans;
+    cout << solve(a, 0, visg);
 
     return 0;
 }
