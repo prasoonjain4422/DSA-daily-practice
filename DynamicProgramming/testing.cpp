@@ -35,6 +35,7 @@ int main()
             
             for(k=0; k<m; k++)
             {
+                
                 y = 0;
                 for(x=i; x<=j; x++)
                 {
