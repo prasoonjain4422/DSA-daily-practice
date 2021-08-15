@@ -1,33 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int k, x, y, n, g, len, ans = 0;
-int solve(vector<vector<int>> &a, int i, vector<bool> visg)
-{
-    if (i >= n)
-    {
-        for (int j = 0; j < g; j++)
-        {
-            if (!visg[j])
-            {
-                return INT_MIN;
-            }
-        }
-        return 0;
-    }
-
-    int ans = 0, ans2;
-    for (int j = 0; j < g; j++)
-    {
-        visg[j] = true;
-        ans2 = solve(a, i + 1, visg) + a[i][j];
-        ans = max(ans, ans2);
-        visg[j] = false;
-    }
-
-    return ans;
-}
-
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -36,20 +9,32 @@ int main()
 #endif
 
     int i, j;
-    cin >> n >> g;
+    string s;
+    int k, x, y, n, g, len, ans = 0, q, m, p;
+    unordered_map<string, bool> um;
 
-    vector<vector<int>> a(n, vector<int>(g, 0));
-    vector<bool> visg(g, false);
+    cin >> s;
+    cin >> q;
 
-    for (i = 0; i < n; i++)
+    n = s.length();
+
+    while (q--)
     {
-        for (j = 0; j < g; j++)
+        cin >> m >> p;
+        ans = 0;
+        for (i = 0; (i + m) <= n; i++)
         {
-            cin >> a[i][j];
+            if (!um[s.substr(i, m)])
+            {
+                um[s.substr(i, m)] = true;
+                if (p == count(s.begin(), s.end(), s.substr(i, m)))
+                    ans++;
+            }
         }
-    }
 
-    cout << solve(a, 0, visg);
+        um.clear();
+        cout << ans << endl;
+    }
 
     return 0;
 }
