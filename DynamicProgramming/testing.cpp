@@ -114,6 +114,7 @@ int main()
     {
         cin >> m >> p;
         ans = 0;
+
         um.clear();
         for (i = 0; (i + m) <= n; i++)
         {
