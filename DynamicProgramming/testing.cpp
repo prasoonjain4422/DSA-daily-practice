@@ -111,6 +111,7 @@ int main()
     n = s.length();
 
     while (q--)
+    
     {
         cin >> m >> p;
         ans = 0;
