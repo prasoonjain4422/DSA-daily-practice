@@ -44,54 +44,77 @@ int paint(int i, int d, vector<int> adj[], int dp[][2])
     return (ans + ans2) % M;
 }
 
-bool cmp(pair<int, int> &a, pair<int, int> &b)
+int ans = 0;
+int fun(int n, vector<int> &a, vector<bool> &vis, int s, int i, int sum)
 {
-    return (a.second < b.second);
-}
-
-int minpoints(int input1, vector<pair<int, int>> &input2)
-{
-
-    int i, ans = 1, j;
-    sort(input2.begin(), input2.end());
-
-    j = input2[0].second;
-
-    for (i = 1; i < n; i++)
+    if (sum == s)
     {
-        if ((j >= input2[i].first) && (j <= input2[i].second))
+        ans++;
+        return true;
+    }
+    if(sum > s)
+    {
+        return false;    
+    }
+
+    int j;
+    for (j = i + 1; j < n; j++)
+    {
+        if (!vis[j])
         {
-        }
-        else
-        {
-            ans++;
-            j = max(j, input2[i].second);
+            if (fun(n, a, vis, s, j, sum + a[j]))
+            {
+                vis[j] = true;
+                break;
+            }
         }
     }
 
-    return ans;
+    if (j < n)
+        return true;
+
+    return false;
 }
 
 int main()
 {
+
+    int i, j, p, q, s;
+
+    cin >> n;
+    vector<int> a(n);
+    vector<bool> vis(n);
+
+    for (i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    cin >> s;
+
+    for (i = 0; i < n; i++)
+    {
+        if (!vis[i])
+        {
+            for (j = i + 1; j < n; j++)
+            {
+                if (!vis[j])
+                {
+                    if (fun(n, a, vis, s, j, a[i] + a[j]))
+                    {
+                        vis[i] = true;
+                        vis[j] = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    cout << ans << endl;
+    return 0;
+}
 
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif
 
-    int i, j, p, q;
-
-    cin >> n;
-    vector<pair<int, int>> a(n);
-
-    for (i = 0; i < n; i++)
-    {
-        cin >> p >> q;
-        a[i] = {p, q};
-    }
-
-    cout << minpoints(n, a) << endl;
-
-    return 0;
-}
