@@ -9,7 +9,7 @@ public:
     int pid;
     
 private:
-    int ppid;
+    int ppid
 
 
 
@@ -30,7 +30,6 @@ int main()
 #endif
 
     Child obj;
-    obj.ppid = 1;
     obj.pid = 1;
     obj.cid = 2;
 

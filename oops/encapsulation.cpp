@@ -4,21 +4,20 @@ using namespace std;
 
 class Encap
 {
-        
     private:
         int ppid;
     
     public:
         int pid;
         
-        void fillPid(int x)
-        {
-            pid = x;
-        }
-        
         void fillPpid(int x)
         {
             ppid = x;
+        }
+        
+        void showPpid()
+        {
+            cout<<ppid;
         }
 };
 
@@ -33,11 +32,11 @@ int main()
     
     
     Encap obj;
-    obj.fillPid(25);
+    obj.pid = 34;
     obj.fillPpid(225);
     
     cout << obj.pid << endl;
-    // cout << obj.ppid << endl;
+    obj.showPpid();
 
     return 0;
 }
