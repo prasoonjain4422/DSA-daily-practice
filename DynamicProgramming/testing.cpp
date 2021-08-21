@@ -100,38 +100,31 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    int i, j;
-    string s, e;
-    int n, ans = 0, q, m, p;
-    unordered_map<string, bool> um;
-
-    cin >> s;
-    cin >> q;
-
-    n = s.length();
-
-    while (q--)
+    int i, j, n, s, sum, ans=INT_MAX;
+    cin>>n;
+    vector<int> a(n);
+    for(i=0; i<n; i++)
+        cin>>a[i];
     
+    cin>>s;
+    int m, l=0, r = INT_MAX;
+    while(l<=r)
     {
-        cin >> m >> p;
-        ans = 0;
-
-        um.clear();
-        for (i = 0; (i + m) <= n; i++)
+        m = (l+r)/2;
+        sum = 0;
+        for(i=0; i<n; i++)
+            sum += max(a[i]-m, 0);
+        
+        if(sum > s)
         {
-            e = s.substr(i, m);
-            if (!um[e])
-            {
-                um[e] = true;
-                cout << s << " " << e << endl;
-                cout << i << "  " << countFreq(s, e) << endl;
-                if (p == countFreq(s, e))
-                    ans++;
-            }
+            l = m+1;
         }
-
-        cout << ans << endl;
+        else
+        {
+            r = m-1;
+            ans = min(ans, m);
+        }
     }
-
+    cout<<ans;    
     return 0;
 }
