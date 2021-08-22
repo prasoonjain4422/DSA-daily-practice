@@ -4,21 +4,19 @@ using namespace std;
 
 class Encap
 {
-    private:
-        int ppid;
-    
-    public:
-        int pid;
-        
-        void fillPpid(int x)
-        {
-            ppid = x;
-        }
-        
-        void showPpid()
-        {
-            cout<<ppid;
-        }
+private:
+    int age;
+
+public:
+    void setAge(int i)
+    {
+        age = i;
+    }
+
+    void getAge()
+    {
+        cout << age;
+    }
 };
 
 int main()
@@ -29,14 +27,10 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    
-    
     Encap obj;
-    obj.pid = 34;
-    obj.fillPpid(225);
-    
-    cout << obj.pid << endl;
-    obj.showPpid();
+    obj.setAge(225);
+
+    obj.getAge();
 
     return 0;
 }
