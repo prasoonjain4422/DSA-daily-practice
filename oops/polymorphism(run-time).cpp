@@ -14,10 +14,13 @@ class Parent
             age = i;
         }
 
-        // virtual void getAge()
-        // {
-        //     // cout<<"Parent-Age-1"<<endl;
-        // }
+        // virtual void ageType() = 0;
+        
+        
+        virtual void getAge()
+        {
+            cout<<"Parent-Age-1"<<endl;
+        }
         
         void getAge(int x)
         {
@@ -27,10 +30,11 @@ class Parent
 
 class Child : public Parent
 {
-    void getAge()
-    {
-        cout<<"Child-Age-1"<<endl;
-    }
+    public :
+        void getAge()
+        {
+            cout<<"Child-Age-1"<<endl;
+        }
 };
 
 int main()
@@ -52,7 +56,9 @@ int main()
     pobj.getAge();
     pobj.getAge(1);
 
+    
+    cobj.getAge();
     pp->getAge();
-
+    
     return 0;
 }
