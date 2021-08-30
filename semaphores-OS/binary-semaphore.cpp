@@ -5,54 +5,54 @@
 
 using namespace std;
 
-// enum dt
-// {
-//     zero,
-//     one
-// };
+enum dt
+{
+    zero,
+    one
+};
 
-// struct Process
-// {
-//     int pid;
-// };
+struct Process
+{
+    int pid;
+};
 
-// struct semaphore
-// {
-//     dt value = zero;
-//     queue<Process> q;
-// };
+struct semaphore
+{
+    dt value = zero;
+    queue<Process> q;
+};
 
-// void sleep();
-// void wakeup(Process p);
+void sleep();
+void wakeup(Process p);
 
-// //  wait
-// void P(semaphore s)
-// {
-//     if (s.value == one)
-//     {
-//         s.value = zero;
-//     }
-//     else
-//     {
-//         // s.q.push(p);
-//         // sleep();
-//     }
-// }
+//  wait
+void P(semaphore s, Process p)
+{
+    if (s.value == one)
+    {
+        s.value = zero;
+    }
+    else
+    {
+        s.q.push(p);
+        sleep();
+    }
+}
 
-// //  signal
-// void V(semaphore s)
-// {
-//     if (s.q.empty())
-//     {
-//         s.value = one;
-//     }
-//     else
-//     {
-//         Process p = s.q.front();
-//         s.q.pop();
-//         wakeup(p);
-//     }
-// }
+//  signal
+void V(semaphore s)
+{
+    if (s.q.empty())
+    {
+        s.value = one;
+    }
+    else
+    {
+        Process p = s.q.front();
+        s.q.pop();
+        wakeup(p);
+    }
+}
 
 int main()
 {
@@ -62,13 +62,13 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    // call P
-    //     critical section
-    // call V
-
-    fork();
-    fork();
-
+    semaphore s;
+    
+    // call P   -   P(s, pid);
+                    //     critical section
+    // call V   -   V(s);
+    
+    
     cout << "jdh" << endl;
 
     return 0;
