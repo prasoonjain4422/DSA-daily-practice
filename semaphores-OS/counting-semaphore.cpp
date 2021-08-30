@@ -12,16 +12,16 @@ struct semaphore
     queue<Process> q;
 };
 
-void block();
+void sleep();
 void wakeup(Process p);
 
-void P(semaphore s)
+void P(semaphore s, Process p)
 {
     s.value -= 1;
     if (s.value < 0)
     {
         (s.q).push(p);
-        block();
+        sleep();
     }
 }
 
@@ -43,9 +43,9 @@ int main()
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif
-    
+
     semaphore s;
-    
+
     s.q.empty();
 
     // call P
