@@ -27,8 +27,12 @@ void P(semaphore s, Process p)
 
 void V(semaphore s)
 {
-    s.value += 1;
-    if (s.value <= 0)
+    if (s.q.empty())
+    {
+        s.value += 1;
+    }
+    // if (s.value <= 0)
+    else
     {
         Process p = (s.q).front();
         (s.q).pop();
@@ -45,8 +49,6 @@ int main()
 #endif
 
     semaphore s;
-
-    s.q.empty();
 
     // call P
     //     critical section
