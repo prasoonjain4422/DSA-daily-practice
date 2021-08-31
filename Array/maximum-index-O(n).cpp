@@ -8,7 +8,6 @@ class Solution{
 public:
     int maxIndexDiff(int a[], int n) 
     {
-        
         int i, j, ans = 0;
         int l[n], r[n];
         l[0] = a[0];
