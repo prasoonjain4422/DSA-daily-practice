@@ -15,6 +15,7 @@ int main()
     n = 1;
     i = 10;
 
+
     if (k % 2 == 0)
     {
         cout << -1 << endl;
