@@ -9,9 +9,9 @@ class Kstacks
         int *arr;
         int *top;
         int *prev;
-        int *free;
         
-        int ns, size, freeind = 0;
+        Kstacks *freespace;              //  stack for storing free spaces
+        int ns, size;
         int cur = 0;
         
         void push(int x, int n)     //push x in nth stack
