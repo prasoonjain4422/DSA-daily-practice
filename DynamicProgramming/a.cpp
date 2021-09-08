@@ -14,7 +14,7 @@ int main()
     cin >> n >> k;
     
     
-    
+
     
     
     
