@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-
 class Kstacks
 {
     public:
@@ -10,11 +8,11 @@ class Kstacks
         int *top;
         int *prev;
         
-        Kstacks *freespace;              //  stack for storing free spaces
+        int *freespace;                 //stack for free spaces
         int ns, size;
         int cur = 0;
         
-        void push(int x, int n)     //push x in nth stack
+        void push(int x, int n)         //push x in nth stack
         {
             if(n < 1 || n > ns)
             {
@@ -29,7 +27,6 @@ class Kstacks
         
         void pop(int n)             //pop from nth stack
         {
-            free[freeind] = top[n];
             top[n] = prev[top[n]];
         }
 };
