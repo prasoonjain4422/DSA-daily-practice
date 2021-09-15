@@ -9,9 +9,32 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    int i, j, n, k, d = 0;
-
-    cin >> n >> k;
+    int i, j, n, k, d = 0, t;
+    
+    cin>>t;
+    
+    while(t--)
+    {
+        cin >> n;
+        
+        vector<int> a(n), b(n);
+        
+        for(i=0; i<n; i++)
+            cin>>a[i];
+        
+        for(i=0; i<n; i++)
+            cin>>b[i];
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
     
     
     
