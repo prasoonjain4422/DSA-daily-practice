@@ -11,16 +11,7 @@ int main()
 
     int i, j, n, k, d = 0;
 
-    cin >> n >> k;
-    
-    
-    
-
-    
-    
-       
-        
-    
+    cin >> n;
     
     
     
