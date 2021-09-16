@@ -9,89 +9,100 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    int i, j, n, t, k, d, ans, k2, d2, ans2;
+    int i, j, n, t, k, d, ans, k2, d2, ans2, sum = 0;
 
     cin >> t;
 
     while (t--)
     {
-        cin >> n;
 
-        vector<int> a(n), b(n);
-
-        for (i = 0; i < n; i++)
-            cin >> a[i];
-
-        for (i = 0; i < n; i++)
-            cin >> b[i];
-
-        k = 0;
+        cin >> n >> k;
+        j = 0;
         d = 0;
-        ans = a[0];
-        if (a[0] == b[0])
-        {
-            d++;
-        }
 
-        for (i = 1; i < n; i++)
-        {
+        vector<int> a(n), b(n, 0);
+        unordered_map<int, int> deg;
 
-            if (a[i] == b[i])
-            {
-                d++;
-                ans = ans & a[i];
-            }
-            else if ((ans & a[i]) > (ans & b[i]))
-            {
-                ans = ans & a[i];
-            }
-            else
-            {
-                k++;
-                ans = ans & b[i];
-            }
+        for (i = 0; i < n; i++)
+        {
+            cin >> a[i];
+            sum += a[i];
         }
         
-        k2 = 0;
-        d2 = 0;
-        ans2 = b[0];
-        if (a[0] == b[0])
+        
+        if (a[0] <= 0)
         {
-            d2++;
+            if(a[n-1] > 0)
+                b[0] = 1;
+            else if(a[1] > 0)
+                b[0] = 1;
+            else
+                b[0] = INT_MIN;
         }
         else
         {
-            k2++;        
+            j++;
         }
-
-        for (i = 1; i < n; i++)
+        
+        if (a[n-1] <= 0)
         {
-
-            if (a[i] == b[i])
+            if(a[n-2] > 0)
+                b[n-1] = 1;
+            else if(a[0] > 0)
+                b[n-1] = 1;
+            else
+                b[n-1] = INT_MIN;
+        }
+        else
+        {
+            j++;
+        }
+        
+        for (i = 1; i < n-1; i++)
+        {
+            if (a[i] <= 0)
             {
-                d2++;
-                ans2 = ans2 & a[i];
-            }
-            else if ((ans2 & a[i]) > (ans2 & b[i]))
-            {
-                ans2 = ans2 & a[i];
+                b[i] = b[i - 1] + 1;
             }
             else
             {
-                k2++;
-                ans2 = ans2 & b[i];
+                j++;
             }
         }
-        
-        if(ans2 > ans)
-        {
-            ans = ans2;
-            k = k2;
-            d = d2;
-        }
-        
 
-        cout << ans << " " << min(k, n - k - d) << endl;
+        if (j == n)
+        {
+            cout << sum + (2 * n * k) << endl;
+            continue;
+        }
+
+        for (i = n - 2; i > 0; i++)
+        {
+            if (a[i] <= 0)
+            {
+                b[i] = min(b[i + 1] + 1, b[i]);
+
+                deg[b[i]]++;
+            }
+        }
+
+        ans = sum;
+        d = 1;
+        while (k--)
+        {
+            ans += (2 * j);
+            j += deg[d++];
+
+            if (j == n)
+                break;
+        }
+
+        if (k > 0)
+        {
+            ans += 2*n*k;
+        }
+
+        cout << ans << endl;
     }
 
     return 0;
