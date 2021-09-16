@@ -7,12 +7,12 @@ using namespace std;
  // } Driver Code Ends
 // User function Template for C++
 
-    unordered_map<string, bool> um;
 class Solution{
 public:
 
     
-    static void ahead(int i, string &s, vector<string> &ans, string ps)
+    static unordered_map<string, bool> um;
+    void ahead(int i, string &s, vector<string> &ans, string ps)
     {
         if(i == s.size())
         {
@@ -20,12 +20,12 @@ public:
             return;
         }
         
-        int j;
-        for(j=1; j+i<=s.size(); j++)
+        int j = 1;
+        for(j; j+i<=s.size(); j++)
         {
             if(um[s.substr(i, j)])
             {
-                ahead(i+j, s, ans, ps + " " + s.substr(i, j));
+                ahead(i+j, s, ans, s + " " + s.substr(i, j));
             }
         }
     }
@@ -33,18 +33,18 @@ public:
     vector<string> wordBreak(int n, vector<string>& dict, string s)
     {
         
-        int i;
+        int i, siz = s.size();
         vector<string> ans;
         
         um.clear();
         for(i=0; i<n; i++)
             um[dict[i]] = true;
         
-        for(i=1; i<=s.size(); i++)
+        for(i=1; i<siz; i++)
         {
             if(um[s.substr(0, i)])
             {
-                ahead(i, s, ans, s.substr(0, i));
+                ahead(i, s, ans, "");
             }
         }
         
@@ -52,7 +52,7 @@ public:
     }
 };
 
-// { }  // } Driver Code EndsDriver Code Starts.
+// { Driver Code Starts.
 
 int main(){
     int t;
@@ -80,3 +80,4 @@ int main(){
         }
     }
     return 0;
+}  // } Driver Code Ends
