@@ -1,6 +1,98 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+bool isv(string str)
+{
+    int i, n = str.size();
+    stack<char> s;
+
+    for (i = 0; i < n; i++)
+    {
+        if (str[i] == '(')
+        {
+            s.push('(');
+        }
+        else if (str[i] == ')')
+        {
+            if ((!s.empty()) && (s.top() == '('))
+            {
+                s.pop();
+            }
+            else
+            {
+                s.push(')');
+            }
+        }
+    }
+
+    if (s.empty())
+        return true;
+
+    return false;
+}
+
+void dfs(string str, int j, vector<string> &ans)
+{
+    // cout << str << endl;
+    if (j == 0)
+    {
+        if (isv(str))
+        {
+            ans.push_back(str);
+        }
+    }
+    else
+    {
+        int i, n = str.size();
+
+        for (i = 1; i < n - 1; i++)
+        {
+            dfs(str.substr(0, i) + str.substr(i + 1), j - 1, ans);
+        }
+        // dfs(str.substr(0, n - 1), j - 1, ans);
+    }
+}
+
+vector<string> removeInvalidParentheses(string str)
+{
+
+    int i, j, n = str.size();
+    vector<int> l, r;
+    stack<char> s;
+
+    for (i = 0; i < n; i++)
+    {
+        if (str[i] == '(')
+        {
+            s.push('(');
+        }
+        else if (str[i] == ')')
+        {
+            if ((!s.empty()) && (s.top() == '('))
+            {
+                s.pop();
+            }
+            else
+            {
+                s.push(')');
+            }
+        }
+    }
+
+    vector<string> ans;
+    j = s.size();
+    cout << j << endl;
+
+    for (i = 1; i < n - 1; i++)
+    {
+        dfs(str.substr(0, i) + str.substr(i + 1), j - 1, ans);
+    }
+
+    // dfs(str.substr(0, n - 1), j - 1, ans);
+
+    return ans;
+}
+
 int main()
 {
 
@@ -9,100 +101,17 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    int i, j, n, t, k, d, ans, k2, d2, ans2, sum = 0;
+    string s;
+    cin >> s;
 
-    cin >> t;
+    vector<string> out = removeInvalidParentheses(s);
 
-    while (t--)
+    if (out.size() == 0)
+        cout << "0/-";
+
+    for (auto x : out)
     {
-
-        cin >> n >> k;
-        j = 0;
-        d = 0;
-
-        vector<int> a(n), b(n, 0);
-        unordered_map<int, int> deg;
-
-        for (i = 0; i < n; i++)
-        {
-            cin >> a[i];
-            sum += a[i];
-        }
-        
-        
-        if (a[0] <= 0)
-        {
-            if(a[n-1] > 0)
-                b[0] = 1;
-            else if(a[1] > 0)
-                b[0] = 1;
-            else
-                b[0] = INT_MIN;
-        }
-        else
-        {
-            j++;
-        }
-        
-        if (a[n-1] <= 0)
-        {
-            if(a[n-2] > 0)
-                b[n-1] = 1;
-            else if(a[0] > 0)
-                b[n-1] = 1;
-            else
-                b[n-1] = INT_MIN;
-        }
-        else
-        {
-            j++;
-        }
-        
-        for (i = 1; i < n-1; i++)
-        {
-            if (a[i] <= 0)
-            {
-                b[i] = b[i - 1] + 1;
-            }
-            else
-            {
-                j++;
-            }
-        }
-
-        if (j == n)
-        {
-            cout << sum + (2 * n * k) << endl;
-            continue;
-        }
-
-        for (i = n - 2; i > 0; i++)
-        {
-            if (a[i] <= 0)
-            {
-                b[i] = min(b[i + 1] + 1, b[i]);
-
-                deg[b[i]]++;
-            }
-        }
-
-        ans = sum;
-        d = 1;
-        while (k--)
-        {
-            ans += (2 * j);
-            j += deg[d++];
-
-            if (j == n)
-                break;
-        }
-
-        if (k > 0)
-        {
-            ans += 2*n*k;
-        }
-
-        cout << ans << endl;
+        cout << x << endl;
     }
 
     return 0;
