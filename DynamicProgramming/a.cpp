@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+unordered_map<string, bool> vis;
 
 bool isv(string str)
 {
@@ -33,6 +34,10 @@ bool isv(string str)
 
 void dfs(string str, int j, vector<string> &ans)
 {
+    
+    if(vis[str])
+        return;
+    
     // cout << str << endl;
     if (j == 0)
     {
@@ -45,12 +50,15 @@ void dfs(string str, int j, vector<string> &ans)
     {
         int i, n = str.size();
 
-        for (i = 1; i < n - 1; i++)
+        for (i = 0; i < n - 1; i++)
         {
             dfs(str.substr(0, i) + str.substr(i + 1), j - 1, ans);
         }
-        // dfs(str.substr(0, n - 1), j - 1, ans);
+        dfs(str.substr(0, n - 1), j - 1, ans);
     }
+    
+    vis[str] = true;
+    
 }
 
 vector<string> removeInvalidParentheses(string str)
@@ -83,12 +91,12 @@ vector<string> removeInvalidParentheses(string str)
     j = s.size();
     cout << j << endl;
 
-    for (i = 1; i < n - 1; i++)
+    for (i = 0; i < n - 1; i++)
     {
         dfs(str.substr(0, i) + str.substr(i + 1), j - 1, ans);
     }
 
-    // dfs(str.substr(0, n - 1), j - 1, ans);
+    dfs(str.substr(0, n - 1), j - 1, ans);
 
     return ans;
 }
