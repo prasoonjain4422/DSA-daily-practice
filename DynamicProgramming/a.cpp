@@ -11,28 +11,31 @@ int main()
     int i, j, n;
     
     cin>>n;
-    vector<int> a(n);
+    int a[n], b[n];
     
     for(i=0; i<n; i++)
     {
         cin>>a[i];
+        b[i] = a[i];
     }
     
+    sort(a, a+n);
     
     int ans = 0;
-    for(i=1; i<n-1; i++)
+    for(i=0; i<n; i++)
     {
-        if((a[i] > a[i-1])&&(a[i] <= a[i+1]))
-        {
+        if(a[i] != b[i])
             ans++;
-        }
-        else if((a[i] > a[i+1])&&(a[i] <= a[i-1]))
-        {
-            ans++;
-        }
     }
     
-    cout<<ans;
+    if(ans > 2)
+    {
+        cout<<"NO";
+    }
+    else
+    {
+        cout<<"YES";
+    }
     
     return 0;
 }
