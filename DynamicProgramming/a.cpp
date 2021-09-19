@@ -16,10 +16,10 @@ unordered_map<string, bool> sqr;
 
 class Solution
 {
-
 public:
     static bool dfs(int i, int j, int grid[N][N])
     {
+
         if ((i >= n - 1) && (j >= n))
             return true;
 
@@ -33,7 +33,7 @@ public:
                 {
                     while (k < 10)
                     {
-                        cout << " gggg " << i << " " << j << " " << k << endl;
+                        // cout << " gggg " << i << " " << j << " " << k << endl;
                         // if (row[to_string(i) + to_string(k)])
                         //     cout << "r" << endl;
 
@@ -48,7 +48,7 @@ public:
 
                             if (dfs(i, j + 1, grid))
                             {
-                                // cout << i << " " << j << " " << k << endl;
+                                cout << i << " " << j << " " << k << endl;
                                 return true;
                             }
 
@@ -60,6 +60,8 @@ public:
                         k++;
                     }
 
+                    cout << grid[i][j - 1] << " ";
+                    cout << i << " " << j << endl;
                     return false;
                 }
                 j++;
@@ -104,13 +106,13 @@ public:
     void printGrid(int grid[N][N])
     {
         int i, j;
-
         for (i = 0; i < n; i++)
         {
             for (j = 0; j < n; j++)
             {
                 cout << grid[i][j] << " ";
             }
+            cout << endl;
         }
     }
 };
