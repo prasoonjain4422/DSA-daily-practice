@@ -3,11 +3,8 @@ using namespace std;
 
 int ans = 0;
 int dfs(vector<bool> vis, int k, int n)
-{
+{    
     
-    int i 
-    
-        
 }
 
 int main()
