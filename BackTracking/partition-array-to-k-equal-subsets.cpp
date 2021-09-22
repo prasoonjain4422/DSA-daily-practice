@@ -41,6 +41,12 @@ class Solution{
         for(i=0; i<n; i++)
             sum += a[i];
         
+        if(k == 1)
+            return true;
+        
+        if(n<k)
+            return false;
+        
         if(sum % k != 0)
             return false;
         
@@ -51,15 +57,8 @@ class Solution{
         
         for(i=0; i<k; i++)
         {
-            // cout<<i<<endl;
-            
             if(!check(a, n, vis, sum/k, 0))
                 return false;
-            
-            // for(int j=0; j<n; j++)
-            //     cout<<vis[j]<<" ";
-            // cout<<endl;
-            
         }
         
         return true;
