@@ -3,6 +3,19 @@
 #define ll long long int
 using namespace std;
 
+int dfs(vector<int> adj[], vector<bool> &vis, int i)
+{
+
+    int ans = 0;
+    vis[i] = true;
+    for (auto x : adj[i])
+    {
+        ans += dfs(adj, vis, x);
+    }
+
+    return (ans + 1);
+}
+
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -10,91 +23,39 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    ll t, n, i, j, k, m, sum = 0;
+    int n, i, j, m, x;
 
     cin >> n;
-    vector<ll> as(n);
-    vector<vector<ll>> a(n);
-
-    for (i = 0; i < n; i++)
-    {
-        cin >> as[i];
-        a[i].resize(as[i]);
-        for (j = 0; j < as[i]; j++)
-        {
-            cin >> a[i][j];
-        }
-    }
-
-    string temp;
     cin >> m;
-    unordered_map<string, bool> um;
-    vector<vector<int>> bb(m);
+    cin >> x;
+    // cout << "n = " << n;
 
+    vector<int> adj[n];
+    vector<bool> vis(n, false);
+
+    // cout << "drd" << endl;
     for (i = 0; i < m; i++)
     {
-        bb[i].resize(n);
-        temp = "";
-        for (j = 0; j < n; j++)
-        {
-            cin >> bb[i][j];
-            temp += to_string(bb[i][j]);
-        }
-
-        um[temp] = true;
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
 
-    vector<int> mb(n);
+    int ans = 0;
+
     for (i = 0; i < n; i++)
-        mb[i] = as[i];
-
-    // for (i = 0; i < n; i++)
-    //     cout << mb[i] << " ";
-    // cout << endl;
-
-    temp = "";
-    for (j = 0; j < n; j++)
     {
-        temp += to_string(mb[j]);
-    }
-
-    string t2 = "", t3 = "";
-    if (um[temp])
-    {
-
-        ll d = INT_MAX;
-        for (i = 0; i < n; i++)
+        if (!vis[i])
         {
-            int it = 0;
-            while ((mb[i] - it) > 1)
-            {
-                // cout << (a[i][mb[i] - 1] - a[i][mb[i] - 2]) << endl;
-                t2 = temp;
-                t2[i] = (a[i][mb[i] - 2] + 48);
+            j = dfs(adj, vis, i);
 
-                if ((d > (a[i][mb[i] - 1] - a[i][mb[i] - 2])) && (!um[t2]))
-                {
-                    d = a[i][mb[i] - 1] - a[i][mb[i] - 2];
-                    t3 = t2;
-                    break;
-                }
-
-                it++;
-            }
+            if (j <= x)
+                ans = max(ans, j);
         }
     }
 
-    // temp = "";
-    // for (j = 0; j < n; j++)
-    // {
-    //     temp += to_string(mb[j]);
-    // }
-
-    if (t3 != "")
-        temp = t3;
-
-    for (i = 0; i < n; i++)
-        cout << t3[i] << " ";
+    cout << ans;
 
     return 0;
 }
