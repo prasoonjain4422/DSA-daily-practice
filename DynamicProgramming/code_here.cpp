@@ -9,6 +9,7 @@ int main()
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif
+
     ll t, n, i, j, k, m, sum = 0;
 
     cin >> n;
