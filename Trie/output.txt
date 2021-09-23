@@ -1,38 +1,8 @@
- - n 1
- - a 1
- - t 1
- - u 1
- - r 1
- - e 1
- - n 2
- - a 2
- - t 2
- - u 2
- - r 2
- - a 1
- - l 1
- - t 1
- - e 1
- - n 1
- - d 1
- - e 1
- - n 1
- - c 1
- - y 1
- - c 1
- - h 1
- - a 1
- - r 1
- - a 1
- - c 1
- - t 1
- - e 1
- - r 1
- - s 1
- - t 1
- - i 1
- - c 1
- - s 1
+Found
+Found
+Found
+Found
 c
-n
+natura
+nature
 t

@@ -32,19 +32,19 @@ public:
             {
                 itr->child[s[i] - 'a'] = newNode();
                 itr = itr->child[s[i] - 'a'];
-                cout << " - " << s[i] << " " << itr->freq << endl;
+                // cout << " - " << s[i] << " " << itr->freq << endl;
             }
             else
             {
                 itr = itr->child[s[i] - 'a'];
                 itr->freq++;
-                cout << " - " << s[i] << " " << itr->freq << endl;
+                // cout << " - " << s[i] << " " << itr->freq << endl;
             }
         }
         itr->isEnd = true;
     }
 
-    bool search(string s)
+    void search(string s)
     {
         int i, n = s.length();
         TrieNode *itr = root;
@@ -53,7 +53,7 @@ public:
         {
             if (itr->child[s[i] - 'a'] == NULL)
             {
-                return false;
+                return;
             }
             else
             {
@@ -62,29 +62,22 @@ public:
         }
 
         if (itr->isEnd)
-            return true;
+        {
+            cout << "Found" << endl;
+            return;
+        }
 
-        return false;
+        cout << "Not Found" << endl;
     }
 
     void dfs(TrieNode *itr, string cur, vector<string> &ans)
     {
+        
         if (itr == NULL)
             return;
 
         if (itr->freq == 1)
         {
-
-            // cur += " -> " + cur;
-
-            // for (int i = 0; i < 26; i++)
-            // {
-            //     if (itr->child[i] != NULL)
-            //     {
-            //         cur +=
-            //     }
-            // }
-
             ans.push_back(cur);
             return;
         }
@@ -94,10 +87,11 @@ public:
             if (itr->child[i] != NULL)
             {
                 char ch = 'a' + i;
-                cout << cur << endl;
+                // cout << cur << endl;
                 cur.append(1, ch);
-                cout << cur << endl;
-                dfs(itr, cur, ans);
+                // cout << cur << endl;
+                dfs(itr->child[i], cur, ans);
+                cur = cur.substr(0, cur.size() - 1);
             }
         }
     }
@@ -105,14 +99,13 @@ public:
     void prefix(vector<string> &ans)
     {
 
-        TrieNode *itr = root;
-
         for (int i = 0; i < 26; i++)
         {
+            TrieNode *itr = root;
             if (itr->child[i] != NULL)
             {
                 string s = string(1, 'a' + i);
-                dfs(itr, s, ans);
+                dfs(itr->child[i], s, ans);
             }
         }
     }
@@ -132,6 +125,11 @@ int main()
     obj.insert("natural");
     obj.insert("tendency");
     obj.insert("characterstics");
+
+    obj.search("nature");
+    obj.search("natural");
+    obj.search("tendency");
+    obj.search("characterstics");
 
     vector<string> ans;
 
