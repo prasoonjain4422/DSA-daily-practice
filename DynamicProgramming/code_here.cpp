@@ -3,19 +3,6 @@
 #define ll long long int
 using namespace std;
 
-int dfs(vector<int> adj[], vector<bool> &vis, int i)
-{
-
-    int ans = 0;
-    vis[i] = true;
-    for (auto x : adj[i])
-    {
-        ans += dfs(adj, vis, x);
-    }
-
-    return (ans + 1);
-}
-
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -24,38 +11,62 @@ int main()
 #endif
 
     int n, i, j, m, x;
+    string s;
+    cin >> s;
+    n = s.length();
 
-    cin >> n;
-    cin >> m;
-    cin >> x;
-    // cout << "n = " << n;
-
-    vector<int> adj[n];
-    vector<bool> vis(n, false);
-
-    // cout << "drd" << endl;
-    for (i = 0; i < m; i++)
-    {
-        int u, v;
-        cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-
-    int ans = 0;
+    vector<pair<int, int>> p;                   // pairs
+    vector<bool> vis(26, false);
 
     for (i = 0; i < n; i++)
     {
-        if (!vis[i])
+        if (!vis[s[i] - 'a'])
         {
-            j = dfs(adj, vis, i);
-
-            if (j <= x)
-                ans = max(ans, j);
+            vis[s[i] - 'a'] = true;
+            for (j = n - 1; j >= 0; j--)
+            {
+                if (s[j] == s[i])
+                {
+                    break;
+                }
+            }
+            cout << i << " " << j << endl;
+            p.push_back({i, j});
         }
     }
 
-    cout << ans;
+    for (i = 0; i < p.size(); i)
+    {
+        // cout << i << endl;
+        j = i + 1;
+        for (j; j < p.size(); j++)
+        {
+            if ((p[i].first < p[j].first) && (p[j].first < p[i].second))
+            {
+                p[i].second = max(p[i].second, p[j].second);
+                p[j].first = -1;
+                p[j].second = -1;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        i = j;
+    }
+
+    for (i = 0; i < p.size(); i++)
+    {
+        if (p[i].first != -1)
+        {
+            for (j = p[i].first; j <= p[i].second; j++)
+            {
+                cout << s[j];
+            }
+            cout << " ";
+        }
+    }
 
     return 0;
 }

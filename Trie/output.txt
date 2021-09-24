@@ -1,8 +1,60 @@
-Found
-Found
-Found
-Found
-c
-natura
-nature
-t
+i
+0
+geeikistest t herer 
+
+        kdfu 0 g  new 
+        kdfu 0 e  new 
+        kdfu 0 e  new 
+        kdfu 0 i  new 
+        kdfu 0 k  new 
+        kdfu 0 i  new 
+        kdfu 0 s  new 
+        kdfu 0 t  new 
+        kdfu 0 e  new 
+        kdfu 0 s  new 
+        kdfu 0 t  new  out 
+1
+geeksforgeeks e herer 
+
+0x55c8bd898040 g  old 
+0x55c8bd898120 e  old 
+0x55c8bd898200 e  old 
+        kdfu 0 k  new 
+        kdfu 0 s  new 
+        kdfu 0 f  new 
+        kdfu 0 o  new 
+        kdfu 0 r  new 
+        kdfu 0 g  new 
+        kdfu 0 e  new 
+        kdfu 0 e  new 
+        kdfu 0 k  new 
+        kdfu 0 s  new  out 
+2
+geeksfortest s herer 
+
+0x55c8bd898040 g  old 
+0x55c8bd898120 e  old 
+0x55c8bd898200 e  old 
+0x55c8bd8989e0 k  old 
+0x55c8bd898ac0 s  old 
+0x55c8bd898ba0 f  old 
+0x55c8bd898c80 o  old 
+0x55c8bd898d60 r  old 
+        kdfu 0 t  new 
+        kdfu 0 e  new 
+        kdfu 0 s  new 
+        kdfu 0 t  new  out 
+3
+geeksforooi i herer 
+
+0x55c8bd898040 g  old 
+0x55c8bd898120 e  old 
+0x55c8bd898200 e  old 
+0x55c8bd8989e0 k  old 
+0x55c8bd898ac0 s  old 
+0x55c8bd898ba0 f  old 
+0x55c8bd898c80 o  old 
+0x55c8bd898d60 r  old 
+        kdfu 0 o  new 
+        kdfu 0 o  new 
+        kdfu 0 i  new  out 
