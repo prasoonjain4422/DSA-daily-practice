@@ -20,29 +20,29 @@ class Solution{
         
         vector<vector<string>> ans;
         
-        TrieNode* root = new TrieNode();
         int i, j, n = string_list.size();
+        // TrieNode* root = new TrieNode();
         
-        for(i=0; i<n; i++)
-        {
-            string temp = string_list[i];
-            TrieNode* itr = root;
-            for(auto x: temp)
-            {
+        // for(i=0; i<n; i++)
+        // {
+        //     string temp = string_list[i];
+        //     TrieNode* itr = root;
+        //     for(auto x: temp)
+        //     {
                 
-                if(itr->child[x-'a'] == NULL)
-                {
-                    itr->child[x-'a'] = new TrieNode();
-                    itr = itr->child[x-'a'];
-                }
-                else
-                {
-                    itr = itr->child[x-'a'];
-                }
+        //         if(itr->child[x-'a'] == NULL)
+        //         {
+        //             itr->child[x-'a'] = new TrieNode();
+        //             itr = itr->child[x-'a'];
+        //         }
+        //         else
+        //         {
+        //             itr = itr->child[x-'a'];
+        //         }
                 
-                itr->isEnd = true;
-            }
-        }
+        //         itr->isEnd = true;
+        //     }
+        // }
         
         vector<bool> vis(n, false);
         
