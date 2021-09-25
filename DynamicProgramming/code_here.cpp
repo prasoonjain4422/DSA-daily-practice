@@ -3,6 +3,19 @@
 #define ll long long int
 using namespace std;
 
+bool prime(ll n)
+{
+    for (ll i = 3; i < n; i += 2)
+    {
+        while (n % i == 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -10,63 +23,31 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    int n, i, j, m, x;
-    string s;
-    cin >> s;
-    n = s.length();
+    ll t, n, i, j, m;
 
-    vector<pair<int, int>> p;                   // pairs
-    vector<bool> vis(26, false);
+    cin >> t;
 
-    for (i = 0; i < n; i++)
+    while (t--)
     {
-        if (!vis[s[i] - 'a'])
+        cin >> n;
+
+        if (n % 2 == 0)
         {
-            vis[s[i] - 'a'] = true;
-            for (j = n - 1; j >= 0; j--)
-            {
-                if (s[j] == s[i])
-                {
-                    break;
-                }
-            }
-            cout << i << " " << j << endl;
-            p.push_back({i, j});
+            cout << 2 * n << " " << n << endl;
         }
-    }
-
-    for (i = 0; i < p.size(); i)
-    {
-        // cout << i << endl;
-        j = i + 1;
-        for (j; j < p.size(); j++)
+        else
         {
-            if ((p[i].first < p[j].first) && (p[j].first < p[i].second))
+
+            if (prime(n + 2))
             {
-                p[i].second = max(p[i].second, p[j].second);
-                p[j].first = -1;
-                p[j].second = -1;
+                cout << n + 2 << " " << 2 << endl;
             }
             else
             {
-                break;
             }
-        }
-        
-        i = j;
-    }
-
-    for (i = 0; i < p.size(); i++)
-    {
-        if (p[i].first != -1)
-        {
-            for (j = p[i].first; j <= p[i].second; j++)
-            {
-                cout << s[j];
-            }
-            cout << " ";
         }
     }
 
     return 0;
 }
+
