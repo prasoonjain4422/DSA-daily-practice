@@ -24,11 +24,14 @@ int main()
         sort(word.begin(), word.end());
         um[word]++;
     }
-    
+
     cin >> m;
     vector<string> sentence(m);
     for (i = 0; i < m; i++)
+    {
         cin >> sentence[i];
+        cout<<sentence[i]<<" ";
+    }
 
     i = -1;
     int count;
@@ -38,6 +41,7 @@ int main()
         count = 1;
         while (s >> word)
         {
+            cout << word << " ";
             sort(word.begin(), word.end());
             count *= um[word];
 
@@ -45,9 +49,9 @@ int main()
                 break;
         }
 
+        cout <<count<<"  "<< endl;
         ans.push_back(count);
     }
-    
 
     for (auto x : ans)
         cout << x << " ";
