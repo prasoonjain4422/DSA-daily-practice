@@ -17,7 +17,7 @@ void lis(int n, vector<int> &arr, vector<bool> &x)
         pre[i] = i;
         for (int j = 0; j < i; j++)
         {
-            if (arr[i] > arr[j] && lis[i] < lis[j] + 1)
+            if (arr[i] >= arr[j] && lis[i] < lis[j] + 1)
             {
                 lis[i] = lis[j] + 1;
                 pre[i] = j;

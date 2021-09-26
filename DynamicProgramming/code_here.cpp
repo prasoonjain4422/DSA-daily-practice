@@ -26,28 +26,14 @@ int main()
     ll t, n, i, j, m;
 
     cin >> t;
-
+    
     while (t--)
     {
         cin >> n;
-
-        if (n % 2 == 0)
-        {
-            cout << 2 * n << " " << n << endl;
-        }
-        else
-        {
-
-            if (prime(n + 2))
-            {
-                cout << n + 2 << " " << 2 << endl;
-            }
-            else
-            {
-            }
-        }
+        
+        
     }
-
+    
     return 0;
 }
 
