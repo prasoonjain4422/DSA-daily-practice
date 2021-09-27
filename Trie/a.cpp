@@ -3,6 +3,7 @@
 #define ll long long int
 using namespace std;
 
+
 int main()
 {
 #ifndef ONLINE_JUDGE
