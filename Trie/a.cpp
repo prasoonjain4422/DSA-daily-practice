@@ -3,7 +3,6 @@
 #define ll long long int
 using namespace std;
 
-
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -11,51 +10,52 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
 
-    ll t, n, i, j, m, d;
+    ll t, n, i, j, m, k, key;
 
-    cin >> n;
+    cin >> t;
 
-    unordered_map<string, int> um;
-    vector<int> ans;
-
-    string word;
-    for (i = 0; i < n; i++)
+    while (t--)
     {
-        cin >> word;
-        sort(word.begin(), word.end());
-        um[word]++;
-    }
+        cin >> n;
 
-    cin >> m;
-    vector<string> sentence(m);
-    for (i = 0; i < m; i++)
-    {
-        cin >> sentence[i];
-        cout<<sentence[i]<<" ";
-    }
-
-    i = -1;
-    int count;
-    while (++i < m)
-    {
-        stringstream s(sentence[i]);
-        count = 1;
-        while (s >> word)
+        vector<pair<int, int>> ans;
+        multiset<pair<int, int>> a;
+        for (i = 0; i < n; i++)
         {
-            cout << word << " ";
-            sort(word.begin(), word.end());
-            count *= um[word];
-
-            if (count == 0)
-                break;
+            cin >> j;
+            if (j > 0)
+                a.insert({j, i});
         }
 
-        cout <<count<<"  "<< endl;
-        ans.push_back(count);
-    }
+        while (a.size() > 1)
+        {
 
-    for (auto x : ans)
-        cout << x << " ";
+            auto x = *a.begin();
+            auto y = *prev(a.end());
+            a.erase(a.begin());
+            a.erase(prev(a.end()));
+
+            x.first--;
+            y.first--;
+
+            if (x.first > 0)
+                a.insert(x);
+            if (y.first > 0)
+                a.insert(y);
+
+            if (x.second > y.second)
+                swap(x, y);
+
+            ans.push_back({x.second + 1, y.second + 1});
+        }
+
+        cout << ans.size() << endl;
+
+        for (auto x : ans)
+        {
+            cout << x.first << " " << x.second << endl;
+        }
+    }
 
     return 0;
 }
