@@ -33,18 +33,12 @@ ll lcm(ll a, ll b)
 }
 
 
-void dfs()
+
+void dfs(map<ll, ll> &ans, vector<ll> &outtime, vector<bool> &vis)
 {
     
     
-    
-    
-    
 }
-
-
-
-
 
 void solve()
 {
@@ -53,8 +47,8 @@ void solve()
     cin >> n >> k;
 
     map<ll, ll> ans;
-    vector<ll> deg(n + 1), degin(n + 1);
-    vector<bool> ex(n + 1, false);
+    vector<ll> deg(n + 1), outtime(n + 1);
+    vector<bool> vis(n + 1, false);
     vector<ll> adj[n + 1];
 
     for (i = 0; i < n - 1; i++)
@@ -67,13 +61,12 @@ void solve()
     }
     // cout << "      " << n << " -- " << k << endl;
 
-    l = 0;
-
     for (i = 1; i <= n; i++)
     {
         if (deg[i] == 1)
         {
-            degin[i] = 1;
+            vis[i] = true;
+            outtime[i] = 1;
             ans[1]++;
         }
     }
@@ -84,37 +77,13 @@ void solve()
         return;
     }
 
-    j = 1;
-    while (l == 0)
+    for (i = 1; i < n; i++)
     {
-        l = 1;
-        for (i = 1; i <= n; i++)
+        if (!vis[i])
         {
-            m = 0;
-            if (!ex[i])
-            {
-
-                for (auto x : adj[i])
-                {
-                    if (deg[x] > j)
-                    {
-                        m = 1;
-                        break;
-                    }
-                }
-
-                if (m == 0)
-                {
-                    l = 0;
-                    ans[j + 1]++;
-                }
-            }
+            dfs(ans, );
         }
-        ans[j + 1] += ans[j];
-        j++;
     }
-
-    cout << n - ans[j] << endl;
 }
 int main()
 {
