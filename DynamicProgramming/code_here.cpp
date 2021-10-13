@@ -1,11 +1,9 @@
 #include <bits/stdc++.h>
 #define endl "\n"
 #define ll long long int
-// #define ll unsigned long long
 using namespace std;
 const ll M = 1000000007;
 
-//  (x^y)%M
 ll power(ll x, ll y)
 {
 
@@ -21,24 +19,103 @@ ll power(ll x, ll y)
     return p;
 }
 
+ll gcd(ll a, ll b)
+{
+    if (b == 0)
+        return a;
+
+    return gcd(b, a % b);
+}
+
+ll lcm(ll a, ll b)
+{
+    return ((a * b) / gcd(a, b));
+}
+
+
+void dfs()
+{
+    
+    
+    
+    
+    
+}
+
+
+
+
+
 void solve()
 {
-    ll i, j, k, n, a, b, m, c, l, r, mid, sum;
+    ll i, j, k, n, b, m, c, l, r, mid, sum;
 
     cin >> n >> k;
 
-    ll ans = 0ll;
-    for (i = 31; i >= 0; i--)
+    map<ll, ll> ans;
+    vector<ll> deg(n + 1), degin(n + 1);
+    vector<bool> ex(n + 1, false);
+    vector<ll> adj[n + 1];
+
+    for (i = 0; i < n - 1; i++)
     {
-        if (k & (1ll << i))
+        cin >> b >> c;
+        adj[b].push_back(c);
+        adj[c].push_back(b);
+        deg[b]++;
+        deg[c]++;
+    }
+    // cout << "      " << n << " -- " << k << endl;
+
+    l = 0;
+
+    for (i = 1; i <= n; i++)
+    {
+        if (deg[i] == 1)
         {
-            ans = (ll)(((ans % M) + (power(n, i) % M)) % M);
+            degin[i] = 1;
+            ans[1]++;
         }
     }
 
-    cout << ans << endl;
-}
+    if (k == 1)
+    {
+        cout << n - ans[1] << endl;
+        return;
+    }
 
+    j = 1;
+    while (l == 0)
+    {
+        l = 1;
+        for (i = 1; i <= n; i++)
+        {
+            m = 0;
+            if (!ex[i])
+            {
+
+                for (auto x : adj[i])
+                {
+                    if (deg[x] > j)
+                    {
+                        m = 1;
+                        break;
+                    }
+                }
+
+                if (m == 0)
+                {
+                    l = 0;
+                    ans[j + 1]++;
+                }
+            }
+        }
+        ans[j + 1] += ans[j];
+        j++;
+    }
+
+    cout << n - ans[j] << endl;
+}
 int main()
 {
 
