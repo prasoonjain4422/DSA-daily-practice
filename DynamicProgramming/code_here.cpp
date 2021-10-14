@@ -32,12 +32,28 @@ ll lcm(ll a, ll b)
     return ((a * b) / gcd(a, b));
 }
 
-
-
-void dfs(map<ll, ll> &ans, vector<ll> &outtime, vector<bool> &vis)
+ll dfs(ll i, vector<ll> &outtime, vector<bool> &vis, vector<ll> adj[], vector<ll> &deg)
 {
-    
-    
+
+    vis[i] = true;
+
+    ll mx = 0;
+    for (auto x : adj[i])
+    {
+        if (!vis[x])
+        {
+            mx = max(mx, dfs(x, outtime, vis, adj, deg));
+        }
+    }
+
+    if (deg[i] == 1)
+        outtime[i] = 1;
+    else
+        outtime[i] = mx + 1;
+
+    cout << i << " --> " << outtime[i] << endl;
+
+    return outtime[i];
 }
 
 void solve()
@@ -46,7 +62,7 @@ void solve()
 
     cin >> n >> k;
 
-    map<ll, ll> ans;
+    ll ans;
     vector<ll> deg(n + 1), outtime(n + 1);
     vector<bool> vis(n + 1, false);
     vector<ll> adj[n + 1];
@@ -59,32 +75,36 @@ void solve()
         deg[b]++;
         deg[c]++;
     }
-    // cout << "      " << n << " -- " << k << endl;
+    cout << "      " << n << " -- " << k << endl;
 
-    for (i = 1; i <= n; i++)
+    if (n <= 2)
     {
-        if (deg[i] == 1)
-        {
-            vis[i] = true;
-            outtime[i] = 1;
-            ans[1]++;
-        }
-    }
-
-    if (k == 1)
-    {
-        cout << n - ans[1] << endl;
+        cout << 0 << endl;
         return;
     }
 
-    for (i = 1; i < n; i++)
+    for (i = 1; i <= n; i++)
     {
         if (!vis[i])
         {
-            dfs(ans, );
+            cout << i << " - here" << endl;
+            dfs(i, outtime, vis, adj, deg);
         }
     }
+
+    ans = 0;
+    for (i = 1; i <= n; i++)
+    {
+        if (outtime[i] <= k)
+        {
+            ans++;
+        }
+    }
+
+    cout << (n - ans) << endl;
+    cout << endl;
 }
+
 int main()
 {
 
