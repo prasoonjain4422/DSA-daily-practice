@@ -32,30 +32,6 @@ ll lcm(ll a, ll b)
     return ((a * b) / gcd(a, b));
 }
 
-ll dfs(ll i, vector<ll> &outtime, vector<bool> &vis, vector<ll> adj[], vector<ll> &deg)
-{
-
-    vis[i] = true;
-
-    ll mx = 0;
-    for (auto x : adj[i])
-    {
-        if (!vis[x])
-        {
-            mx = max(mx, dfs(x, outtime, vis, adj, deg));
-        }
-    }
-
-    if (deg[i] == 1)
-        outtime[i] = 1;
-    else
-        outtime[i] = mx + 1;
-
-    cout << i << " --> " << outtime[i] << endl;
-
-    return outtime[i];
-}
-
 void solve()
 {
     ll i, j, k, n, b, m, c, l, r, mid, sum;
