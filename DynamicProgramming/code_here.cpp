@@ -4,48 +4,83 @@
 using namespace std;
 const ll M = 1000000007;
 
-void dfs(ll i, vector<bool> &in, vector<ll> adj[])
-{
-
-    in[i] = true;
-
-    for (auto x : adj[i])
-    {
-        if (!in[x])
-        {
-            dfs(x, in, adj);
-        }
-    }
-}
-
 void solve()
 {
-    ll i, j, k, n, a, b, m, c, l, r, mid, sum, f;
+    ll i, j, k, n, m, c, l, r, mid, sum, f;
 
-    // cin >> n >> m;
-    priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> pq;
-
-    pq.push({5, 1});
-    pq.push({2, 1});
-    pq.push({4, 1});
-    pq.push({1, 3});
-    pq.push({3, 2});
-    n = 1;
-
-    while (!pq.empty())
+    cin >> n;
+    vector<ll> a(n), b(n);
+    for (i = 0; i < n; i++)
     {
-        cout << pq.top().first << " " << pq.top().second << endl;
-        pq.pop();
+        cin >> a[i];
+    }
 
-        if (n == 1)
+    for (i = 0; i < n; i++)
+    {
+        cin >> b[i];
+    }
+
+    vector<ll> dp(n + 1, INT_MAX);
+
+    dp[0] = 0;
+    // cout << dp[0] << endl;
+    unordered_map<ll, ll> um;
+
+    for (i = 1; i <= n; i++)
+    {
+        if ((i - a[i - 1]) <= 0)
         {
-            pq.push({1, 3});
-            pq.push({2, 2});
-            n = 0;
+            dp[i] = 1LL;
+            um[i] = 0;
         }
     }
 
-    // cout << endl;
+    for (i = 1; i <= n; i++)
+    {
+        // cout << i << endl;
+        
+        if(i + b[i])
+        
+        for (j = a[i - 1]; j > 0; j--)
+        {
+            if (i - j > 0)
+            {
+                if (dp[i] > dp[max(0LL, i - j + b[i - j - 1])] + 1)
+                {
+                    dp[i] = dp[max(0LL, i - j + b[i - j - 1])] + 1;
+                    um[i] = i - j;
+                }
+            }
+            else
+            {
+                if (dp[i] > 1)
+                {
+                    dp[i] = 1LL;
+                    um[i] = 0;
+                }
+            }
+            // cout << i << " -- " << dp[i] << " -- " << um[i] << " ";
+        }
+        // cout << endl;
+    }
+
+    if (dp[n] != INT_MAX)
+    {
+        cout << dp[n] << endl;
+        i = n;
+        while (um[i])
+        {
+            cout << um[i] << " ";
+            i = um[i];
+        }
+        cout << um[i];
+    }
+    else
+    {
+        cout << "-1";
+    }
+
+    cout << endl;
 }
 
 int main()
@@ -59,12 +94,12 @@ int main()
     cin.tie(NULL);
 
     ll t;
-    cin >> t;
+    // cin >> t;
 
-    while (t--)
-    {
-        solve();
-    }
+    // while (t--)
+    // {
+    solve();
+    // }
 
     return 0;
 }
