@@ -1,5 +1,3 @@
-// { Driver Code Starts
-//Initial Template for C++
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -19,7 +17,6 @@ struct Node
 // Function to Build Tree
 Node *buildTree(string str)
 {
-    // Corner Case
     if (str.length() == 0 || str[0] == 'N')
         return NULL;
 
@@ -149,6 +146,5 @@ vector<int> zigZagTraversal(Node *root)
 
         ans.insert(ans.end(), temp.begin(), temp.end());
     }
-
     return ans;
 }

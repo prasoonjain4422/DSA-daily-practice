@@ -1,87 +1,40 @@
 #include <bits/stdc++.h>
 #define endl "\n"
-#define ll long long int
+#define ll long long
 using namespace std;
 const ll M = 1000000007;
 
-void solve()
+class Solution
 {
-    ll i, j, k, n, m, c, l, r, mid, sum, f;
+public:
+    bool prime[1000000 + 2];
 
-    cin >> n;
-    vector<ll> a(n), b(n);
-    for (i = 0; i < n; i++)
+    void SieveOfEratosthenes()
     {
-        cin >> a[i];
-    }
+        memset(prime, true, sizeof(prime));
 
-    for (i = 0; i < n; i++)
-    {
-        cin >> b[i];
-    }
-
-    vector<ll> dp(n + 1, INT_MAX);
-
-    dp[0] = 0;
-    // cout << dp[0] << endl;
-    unordered_map<ll, ll> um;
-
-    for (i = 1; i <= n; i++)
-    {
-        if ((i - a[i - 1]) <= 0)
+        for (int p = 2; p * p <= 1000000; p++)
         {
-            dp[i] = 1LL;
-            um[i] = 0;
-        }
-    }
-
-    for (i = 1; i <= n; i++)
-    {
-        // cout << i << endl;
-        
-        if(i + b[i])
-        
-        for (j = a[i - 1]; j > 0; j--)
-        {
-            if (i - j > 0)
+            if (prime[p] == true)
             {
-                if (dp[i] > dp[max(0LL, i - j + b[i - j - 1])] + 1)
-                {
-                    dp[i] = dp[max(0LL, i - j + b[i - j - 1])] + 1;
-                    um[i] = i - j;
-                }
+                for (int i = p * p; i <= 1000000; i += p)
+                    prime[i] = false;
             }
-            else
-            {
-                if (dp[i] > 1)
-                {
-                    dp[i] = 1LL;
-                    um[i] = 0;
-                }
-            }
-            // cout << i << " -- " << dp[i] << " -- " << um[i] << " ";
         }
-        // cout << endl;
     }
 
-    if (dp[n] != INT_MAX)
+    void solve()
     {
-        cout << dp[n] << endl;
-        i = n;
-        while (um[i])
-        {
-            cout << um[i] << " ";
-            i = um[i];
-        }
-        cout << um[i];
-    }
-    else
-    {
-        cout << "-1";
-    }
+        ll i, j, k, n, m, sum, f, v, x, y, r, l, p, q, e, pf;
+        ll ans = 0;
 
-    cout << endl;
-}
+        cin >> n;
+
+        cout << pow(n, ((double)1 / (double)5));
+
+        cout << endl;
+    }
+};
 
 int main()
 {
@@ -94,12 +47,14 @@ int main()
     cin.tie(NULL);
 
     ll t;
-    // cin >> t;
+    cin >> t;
 
-    // while (t--)
-    // {
-    solve();
-    // }
+    Solution obj;
+    // obj.SieveOfEratosthenes();
+    while (t--)
+    {
+        obj.solve();
+    }
 
     return 0;
 }

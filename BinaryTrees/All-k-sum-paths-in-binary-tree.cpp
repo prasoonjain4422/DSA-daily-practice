@@ -21,6 +21,7 @@ Node *newNode(int val)
 // Function to Build Tree
 Node *buildTree(string str)
 {
+    cout << "d";
     // Corner Case
     if (str.length() == 0 || str[0] == 'N')
         return NULL;
@@ -105,19 +106,20 @@ int main()
         getline(cin, s);
         cin >> k;
         Node *root = buildTree(s);
+        // cout << root->data;
         vector<int> path;
-        stack<Node*> q;
+        stack<Node *> q;
         q.push(root);
-        while(!q.empty())
+        while (!q.empty())
         {
             root = q.top();
             q.pop();
             kSumPaths(root, k, 0, path);
-            
-            if(root->right != NULL)
-                q.push(root->right);            
-            
-            if(root->left != NULL)
+
+            if (root->right != NULL)
+                q.push(root->right);
+
+            if (root->left != NULL)
                 q.push(root->left);
         }
     }
@@ -144,7 +146,6 @@ struct Node
 void kSumPaths(Node *root, int k, int s, vector<int> &path)
 {
 
-
     s += root->data;
     path.push_back(root->data);
 
@@ -155,12 +156,12 @@ void kSumPaths(Node *root, int k, int s, vector<int> &path)
             cout << x << " ";
         cout << endl;
     }
-    
+
     if (root->left != NULL)
         kSumPaths(root->left, k, s, path);
 
     if (root->right != NULL)
         kSumPaths(root->right, k, s, path);
-    
+
     path.pop_back();
 }

@@ -6,8 +6,8 @@ vector<ll> b(1000);
 
 //----> Time complexity is O(n+k)
 //----> Auxiliary space is O(n+k)
-//----> if k(range of input data) = n2, then time complexity
-//      will be O(n2) 
+//----> if k(range of input data) = n^2, then time complexity
+//      will be O(n^2)
 
 
 void countingSort(ll n)

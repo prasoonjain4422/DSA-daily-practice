@@ -1,8 +1,6 @@
-// { Driver Code Starts
 #include<bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
 
 
 class Solution
@@ -16,7 +14,6 @@ class Solution
         
         while(l<=r)
         {
-            
             if(tail[m] <= s)
             {
                 l = m+1;
@@ -68,7 +65,6 @@ class Solution
 };
 
 
-// { Driver Code Starts.
 int main()
 {
     //taking total testcases
@@ -88,4 +84,4 @@ int main()
         cout << ob.longestSubsequence(n, a) << endl;
     }
 }
-  // } Driver Code Ends
+
