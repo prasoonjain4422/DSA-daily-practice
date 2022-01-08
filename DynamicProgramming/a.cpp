@@ -4,74 +4,80 @@
 using namespace std;
 const ll M = 1000000007;
 
+ll gcd(ll a, ll b)
+{
+    if (b == 0)
+        return a;
+
+    return gcd(b, a % b);
+}
+
+ll lcm(ll a, ll b)
+{
+    return ((a * b) / gcd(a, b));
+}
+
 void solve()
 {
-    ll i, j, k, n, m, mid, sum, f, x, y, ans, finalAns, w;
-
+    ll i, j, k, n, m, mid, f, y, ans, finalAns, w, l, r;
     cin >> n;
 
-    vector<ll> h(n);
+    vector<ll> a(n);
 
-    sum = 0;
+    ll sum = 0;
     for (i = 0; i < n; i++)
     {
-        cin >> h[i];
-        sum += h[i];
+        cin >> a[i];
+        sum += a[i];
     }
 
-    j = (sum / n);
-
-    cout << "j = " << j << endl;
-
-    ans = INT_MAX;
-    for (i = n - 1; i > 1; i--)
+    m = n / 2;
+    sort(a.begin(), a.end());
+    if (n % 2 == 0)
     {
+        m--;
+    }
 
-        // j = (min((h[i] / 3 + h[i - 2] / 2), (h[i] / 3 + h[i - 1])));
-        if ((h[i - 1] < h[i - 2]) && (h[i] > h[i - 1]))
-        {
-            j = (h[i] - h[i - 1]) / 3;
-        }
-        else if (h[i] > h[i - 2])
-        {
-            j = (2 * (h[i] - h[i - 2])) / 5;
-        }
+    double me = (sum / n);
+    double md = a[m];
+
+    if (md == me)
+    {
+        cout << 0 << endl;
+        return;
+    }
+
+    if (me > md)
+    {
+        ll d;
+        if (sum % n != 0)
+            d = n - (sum % n);
         else
+            d = 0;
+
+        ans = d;
+        sum += d;
+
+        double dd = (((double)((double)sum / (double)n) - (double)a[m])) / (double)(n - 1);
+
+        j = dd;
+
+        // cout << ans << " " << dd << " ";
+        if ((double)j != dd)
         {
-            j = (sum / n);
-        
-        }
-        j = min((sum / n), j);
-        
-        if (h[i] >= (j + 3))
-        {
-            k = (h[i] - j);
-            k = k - (k % 3);
-
-            h[i] -= k;
-            h[i - 1] += (k / 3);
-            h[i - 2] += ((2 * k) / 3);
+            j++;
         }
 
-        cout << "   -" << h[i] << endl;
-        ans = min(ans, h[i]);
+        d = n * j;
+        // d = n * (((sum / n) - a[m]) / (n - 1));
+
+        cout << (ans + d) << endl;
     }
-
-    cout << "   -" << h[1] << endl;
-    cout << "   -" << h[0] << endl;
-    ans = min(ans, h[1]);
-    ans = min(ans, h[0]);
-
-    if (ans == h[0])
+    else
     {
+        ans = (n * a[m]) - sum;
+        cout << ans << endl;
     }
-
-    if (ans == h[1])
-    {
-    }
-
-    cout << ans;
-    cout << endl;
 }
 
 int main()
